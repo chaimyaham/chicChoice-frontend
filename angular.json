@@ -20,12 +20,57 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/js/vendor/bootstrap.bundle.min.js",
+              "src/assets/css/main.css.map",
+              "src/assets/css/vendors/bootstrap.min.css.map",
+              "src/assets/js/vendor/bootstrap.bundle.min.js.map"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/main.css",
+              "src/assets/css/plugins/animate.css",
+              "src/assets/css/plugins/jquery-ui.css",
+              "src/assets/css/plugins/magnific-popup.css",
+              "src/assets/css/plugins/perfect-scrollbar.css",
+              "src/assets/css/plugins/slick.css",
+              "src/assets/css/plugins/select2.min.css",
+              "src/assets/css/vendors/bootstrap.min.css",
+              "src/assets/css/vendors/evara-font.css",
+              "src/assets/css/vendors/fontawesome-all.min.css",
+              "src/assets/css/vendors/normalize.css",
+              "src/assets/css/vendors/uicons-regular-straight.css"
+              
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/main.js",
+              "src/assets/js/shop.js",
+              "src/assets/js/plugins/counterup.js",
+              "src/assets/js/plugins/custom-parallax.js",
+              "src/assets/js/plugins/images-loaded.js",
+              "src/assets/js/plugins/isotope.js",
+              "src/assets/js/plugins/jquery-ui.js",
+              "src/assets/js/plugins/jquery.countdown.min.js",
+              "src/assets/js/plugins/jquery.elevatezoom.js",
+              "src/assets/js/plugins/jquery.syotimer.min.js",
+              "src/assets/js/plugins/jquery.theia.sticky.js",
+              "src/assets/js/plugins/jquery.vticker-min.js",
+              "src/assets/js/plugins/leaflet.js",
+              "src/assets/js/plugins/magnific-popup.js",
+              "src/assets/js/plugins/perfect-scrollbar.js",
+              "src/assets/js/plugins/scrollup.js",
+              "src/assets/js/plugins/select2.min.js",
+              "src/assets/js/plugins/slick.js",
+              "src/assets/js/plugins/TweenMax.min.js",
+              "src/assets/js/plugins/waypoints.js",
+              "src/assets/js/plugins/wow.js",
+              "src/assets/js/vendor/bootstrap.bundle.min.js",
+              "src/assets/js/vendor/jquery-3.6.0.min.js",
+              "src/assets/js/vendor/jquery-migrate-3.3.0.min.js",
+              "src/assets/js/vendor/modernizr-3.6.0.min.js"
+              
+
+            ]
           },
           "configurations": {
             "production": {
@@ -97,5 +142,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
