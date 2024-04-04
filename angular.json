@@ -39,7 +39,10 @@
               "src/assets/css/vendors/evara-font.css",
               "src/assets/css/vendors/fontawesome-all.min.css",
               "src/assets/css/vendors/normalize.css",
-              "src/assets/css/vendors/uicons-regular-straight.css"
+              "src/assets/css/vendors/uicons-regular-straight.css",
+              "src/assets/css/vendors/material-icon-round.css",
+              "src/assets/css/vendors/perfect-scrollbar.css",
+              "src/assets/css/vendors/select2.min.css"
               
             ],
             "scripts": [
@@ -67,7 +70,17 @@
               "src/assets/js/vendor/bootstrap.bundle.min.js",
               "src/assets/js/vendor/jquery-3.6.0.min.js",
               "src/assets/js/vendor/jquery-migrate-3.3.0.min.js",
-              "src/assets/js/vendor/modernizr-3.6.0.min.js"
+              "src/assets/js/vendor/modernizr-3.6.0.min.js",
+              "src/assets/js/custom-chart.js",
+              "src/assets/js/vendors/bootstrap.bundle.min.js",
+              "src/assets/js/vendors/bootstrap.min.js",
+              "src/assets/js/vendors/chart.js",
+              "src/assets/js/vendors/jquery-3.6.0.min.js",
+              "src/assets/js/vendors/jquery.fullscreen.min.js",
+              "src/assets/js/vendors/perfect-scrollbar.js",
+              "src/assets/js/vendors/select2.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+             
               
 
             ]
