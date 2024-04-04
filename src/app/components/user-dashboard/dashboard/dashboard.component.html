@@ -11,57 +11,68 @@
         <nav>
             <ul class="menu-aside">
                 <li class="menu-item active">
-                    <a class="menu-link" href=""> <i class="icon material-icons md-home"></i>
+                    <a class="menu-link" [routerLink]="['/dashboard']" (click)="toggleActive(1)"> <i class="icon material-icons md-home"></i>
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="page-products-list.html"> <i class="icon material-icons md-checkroom"></i>
+                    <a class="menu-link" [routerLink]="['/dashboard/vetements']" (click)="toggleActive(2)"> <i class="icon material-icons md-checkroom"></i>
                         <span class="text">Mes vetements</span>
                     </a>
                     
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-local_offer "></i>
-                        <span class="text">Mes Ensemble</span>
+                    <a class="menu-link" [routerLink]="['/dashboard/ensembles']" (click)="toggleActive(3)"> <i class="icon material-icons md-local_offer "></i>
+                        <span class="text">Mes Ensembles</span>
                     </a>
              
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-event"></i>
+                    <a class="menu-link" [routerLink]="['/dashboard/planning']" (click)="toggleActive(4)"> <i class="icon material-icons md-event"></i>
                         <span class="text">Planing</span>
                     </a>
              
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/dashboard/ajouter-vetement"> <i class="icon material-icons md-add"></i>
+                    <a class="menu-link" [routerLink]="['/dashboard/ajouter-vetement']"  (click)="toggleActive(5)"> <i class="icon material-icons md-add"></i>
                         <span class="text">Ajouter vetement</span>
                     </a>
                
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/dashboard/ajouter-ensemble"> <i class="icon material-icons md-add_circle"></i>
+                    <a class="menu-link" [routerLink]="['/dashboard/ajouter-vetement']" (click)="toggleActive(6)"> <i class="icon material-icons md-add_circle"></i>
                         <span class="text">Creer Ensemble</span>
                     </a>
              
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/dashboard/ajouter-ensemble"> <i class="icon material-icons md-favorite"></i>
+                    <a class="menu-link" [routerLink]="['/dashboard/ajouter-vetement']"  (click)="toggleActive(7)"> <i class="icon material-icons md-favorite"></i>
                         <span class="text">vetements favoris</span>
                     </a>
              
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/dashboard/ajouter-ensemble"> <i class="icon material-icons md-favorite_border"></i>
+                    <a class="menu-link" [routerLink]="['/dashboard/ensembles-favoris']" (click)="toggleActive(8)"> <i class="icon material-icons md-favorite_border"></i>
                         <span class="text">Ensembles favoris</span>
                     </a>
              
                 </li>
-        
+                <li class="menu-item ">
+                    <a class="menu-link" [routerLink]="['/dashboard/category']" (click)="toggleActive(9)"> <i class="icon material-icons md-filter"></i>
+                        <span class="text">Category</span>
+                    </a>
+             
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" [routerLink]="['/dashboard/suggestion']"(click)="toggleActive(10)"> <i class="icon material-icons md-favorite_border"></i>
+                        <span class="text">Suggestion d'ensemble</span>
+                    </a>
+             
+                </li>
         
     
                 <li class="menu-item">
-                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                    <a class="menu-link" [routerLink]="['/dashboard/statistics']" (click)="toggleActive(11)"> <i class="icon material-icons md-pie_chart"></i>
                         <span class="text">Statistics</span>
                     </a>
                 </li>
@@ -87,7 +98,7 @@
                 <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
                 <ul class="nav">
                     <li class="nav-item mr-5">
-                        <a class="nav-link btn-icon" href="/favorite">
+                        <a class="nav-link btn-icon" [routerLink]="['/dashboard/favorite']">
                             <i class="material-icons md-favorite animation-shake"></i>
                             
                         </a>
@@ -99,47 +110,18 @@
                         <li class="nav-item" >
                             <img style="width: 25px;"class="rounded-cercle" alt="User" src="../../../assets/imgs/shop/user.png">
                         </li>
+
+                        <li class="nav-item">
+                            <a (click)="logout()" class="mr-5 ml-5 new btn btn-primary text-white">Logout</a>
+                        </li>
                    
                 </ul>
             </div>
         </header>
         <section class="content-main">
-            <div class="content-header">
-                <h2 class="content-title">Blank page </h2>
-                <div>
-                    <a href="#" class="btn btn-primary">Create new</a>
-                </div>
-            </div>
-            <div class="card mb-4">
-                <header class="card-header">
-                    <h4>Card header</h4>
-                </header>
-                <div class="card-body">
-                    <h5 class="card-title">Card content</h5>
-                    <div class="mt-4">
-                        <div class="text-muted font-size-14">
-                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam enim ad minima veniam quis</p>
-                            <p class="mb-4">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt</p>
-                            <p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Sed ut perspiciatis unde omnis iste natus error sit</p>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- card end// -->
+            <router-outlet></router-outlet>
+           
         </section>
-        <footer class="main-footer font-xs">
-            <div class="row pb-30 pt-15">
-                <div class="col-sm-6">
-                    <script>
-                    document.write(new Date().getFullYear())
-                    </script> ©, Evara - HTML Ecommerce Template .
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end">
-                        All rights reserved
-                    </div>
-                </div>
-            </div>
-        </footer>
-       
+
     </main>
 

@@ -13,6 +13,9 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { RouterModule } from '@angular/router';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/user-dashboard/dashboard/dashboard.component';
+import { ListVetementsComponent } from './components/user-dashboard/vetements/list-vetements/list-vetements.component';
+import { ItemCardComponent } from './components/user-dashboard/vetements/item-card/item-card.component';
+import { ListEnsembleComponent } from './components/user-dashboard/ensembles/list-ensemble/list-ensemble.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { DashboardComponent } from './components/user-dashboard/dashboard/dashbo
     LoginComponent,
     HomePageComponent,
     SignUpComponent,
-    DashboardComponent
+    DashboardComponent,
+    ListVetementsComponent,
+    ItemCardComponent,
+    ListEnsembleComponent
   ],
   imports: [
     BrowserModule,

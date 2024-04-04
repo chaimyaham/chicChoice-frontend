@@ -11,5 +11,19 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  toggleActive(index: number) {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach((item, i) => {
+      if (i + 1 === index) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+  logout(){
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
 
 }
