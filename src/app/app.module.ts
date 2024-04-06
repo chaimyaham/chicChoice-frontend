@@ -16,6 +16,7 @@ import { DashboardComponent } from './components/user-dashboard/dashboard/dashbo
 import { ListVetementsComponent } from './components/user-dashboard/vetements/list-vetements/list-vetements.component';
 import { ItemCardComponent } from './components/user-dashboard/vetements/item-card/item-card.component';
 import { ListEnsembleComponent } from './components/user-dashboard/ensembles/list-ensemble/list-ensemble.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ListEnsembleComponent } from './components/user-dashboard/ensembles/lis
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
