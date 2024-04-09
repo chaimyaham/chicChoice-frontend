@@ -3,80 +3,106 @@
         <div class="card mx-auto card-login">
             <div class="card-body">
                 <h4 class="card-title mb-4">Créer un compte</h4>
-                <form>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Email</label>
-                            <input class="form-control" placeholder="Votre email" type="text">
+                            <input class="form-control"  formControlName="email"  placeholder="Votre email" type="email">
+                            <div *ngIf="f['email'].errors && (f['email'].dirty || f['email'].touched)" class="text-danger">
+                                <div *ngIf="f['email'].errors['required']">Email est requis.</div>
+                                <div *ngIf="f['email'].errors['email']">Email invalide.</div>
+                            </div>
                         </div> 
                         <div class="col-md-6">
                             <label class="form-label">Mot de passe</label>
-                            <input class="form-control" placeholder="Mot de passe" type="password">
+                            <input class="form-control" placeholder="Mot de passe" type="password" formControlName="password">
+                            <div *ngIf="f['password'].errors && (f['password'].dirty || f['password'].touched)" class="text-danger">
+                                <div *ngIf="f['password'].errors['required']">Mot de passe est requis.</div>
+                                <div *ngIf="f['password'].errors['minlength']">Le mot de passe doit contenir au moins 8 caractères.</div>
+                            </div>
                         </div> 
                     </div> 
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Nom</label>
-                            <input class="form-control" placeholder="Votre nom" type="text">
+                            <input class="form-control" placeholder="Votre nom" type="text" formControlName="nom">
+                            <div *ngIf="f['nom'].errors && (f['nom'].dirty || f['nom'].touched)" class="text-danger">
+                                <div *ngIf="f['nom'].errors['required']">Le nom est requis.</div>
+                                <div *ngIf="f['nom'].errors['minlength']">Le nom doit avoir au moins 2 caractères.</div>
+                                <div *ngIf="f['nom'].errors['maxlength']">Le nom ne peut pas dépasser 50 caractères.</div>
+                            </div>
                         </div> 
                         <div class="col-md-6">
                             <label class="form-label">Prénom</label>
-                            <input class="form-control" placeholder="Votre prénom" type="text">
+                            <input class="form-control" placeholder="Votre prénom" type="text" formControlName="prenom">
+                            <div *ngIf="f['prenom'].errors && (f['prenom'].dirty || f['prenom'].touched)" class="text-danger">
+                                <div *ngIf="f['prenom'].errors['required']">Le prénom est requis.</div>
+                                <div *ngIf="f['prenom'].errors['minlength']">Le prénom doit avoir au moins 2 caractères.</div>
+                                <div *ngIf="f['prenom'].errors['maxlength']">Le prénom ne peut pas dépasser 50 caractères.</div>
+                            </div>
                         </div> 
                     </div> 
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Nom d'utilisateur</label>
-                            <input class="form-control" placeholder="Nom d'utilisateur" type="text">
+                            <input class="form-control" placeholder="Nom d'utilisateur" type="text" formControlName="username">
+                            <div *ngIf="f['username'].errors && (f['username'].dirty || f['username'].touched)" class="text-danger">
+                                <div *ngIf="f['username'].errors['required']">Nom d'utilisateur est requis.</div>
+                            </div>
                         </div> 
                         <div class="col-md-6">
                             <label class="form-label">Sexe</label>
-                            <select class="form-control">
+                            <select class="form-control" formControlName="sexe">
+                                <option value="" disabled selected>Choisissez votre sexe</option>
                                 <option value="HOMME">Homme</option>
                                 <option value="FEMME">Femme</option>
                             </select>
+                            <div *ngIf="f['sexe'].errors && (f['sexe'].dirty || f['sexe'].touched)" class="text-danger">
+                                <div *ngIf="f['sexe'].errors['required']">Le sexe est requis.</div>
+                            </div>
                         </div> 
                     </div> 
 
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="selectPays">Pays</label>
-                                <select class="form-control" id="selectPays" name="country" [(ngModel)]="countrySelected" (ngModelChange)="onCountrySelected($event)">
-                                    <option value="" selected>Choisir un pays</option>
+                                <select class="form-control" id="selectPays" formControlName="countrySelected"  (change)="onCountrySelected($event)">
+                                    <option value="" disabled selected>Choisir un pays</option>
                                     <option *ngFor="let country of listcountry" [value]="country.iso2" >{{ country.name }}</option>
+                                </select>
+                                <div *ngIf="f['countrySelected'].errors && (f['countrySelected'].dirty || f['countrySelected'].touched)" class="text-danger">
+                                    <div *ngIf="f['countrySelected'].errors['required']">Le pays est requis.</div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="selectEtat">État</label>
+                                <select class="form-control" id="selectEtat" name="state" formControlName="selectedState"  (change)="onStateSelected($event)">
+                                    <option value=""  disabled selected>Choisir un état</option>
+                                    <option *ngFor="let state of listState" [value]="state.iso2" >{{ state.name }}</option>
                                 </select>
                             </div>
                         </div> 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="selectEtat">État</label>
-                                <select class="form-control" id="selectEtat" name="state" [(ngModel)]="selectedState" (ngModelChange)="onStateSelected()">
-                                    <option value="" selected>Choisir un état</option>
-                                    <option *ngFor="let state of listState" [value]="state.iso2">{{ state.name }}</option>
+                                <label for="selectVille">Ville</label>
+                                <select class="form-control" id="selectVille"  formControlName="selectedCity" >
+                                    <option value="" selected>Choisir une ville</option>
+                                    <option *ngFor="let city of listCity" [value]="city.name">{{ city.name }}</option>
                                 </select>
                             </div>
                         </div> 
                     </div> 
 
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="selectVille">Ville</label>
-                                <select class="form-control" id="selectVille">
-                                    <option value="" selected>Choisir une ville</option>
-                                    <option *ngFor="let city of listCity" [value]="city.id">{{ city.name }}</option>
-                                </select>
-                            </div>
-                        </div> 
-                    </div> 
 
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <label class="form-label">Préférences de style</label>
-                            <select class="form-control">
+                            <select class="form-control"  formControlName="preferencesStyle">
                                 <option value="Casual">Casual</option>
                                 <option value="Formal">Formel</option>
                                 <option value="Sportswear">Vêtements de sport</option>
@@ -88,8 +114,34 @@
                                 <option value="Vintage">Vintage</option>
                                 <option value="Other">Autre</option>
                             </select>
+                             <div *ngIf="f['preferencesStyle'].errors && (f['preferencesStyle'].dirty || f['preferencesStyle'].touched)" class="text-danger">
+            <div *ngIf="f['preferencesStyle'].errors['required']">Les préférences de style sont requises.</div>
+        </div>
                         </div> 
                     </div> 
+                    <div *ngIf="submitted && registerForm.controls['email'].errors" class="text-danger">
+                        <div *ngIf="registerForm.controls['email'].errors['required']">Email est requis.</div>
+                    </div>
+                    <div *ngIf="submitted && registerForm.controls['prenom'].errors" class="text-danger" >
+                        <div *ngIf="registerForm.controls['prenom'].errors && registerForm.controls['prenom'].errors['required']">Le prénom est requis.</div>
+                    </div>
+                    <div *ngIf="submitted && registerForm.controls['nom'].errors" class="text-danger">
+                        <div *ngIf="registerForm.controls['nom'].errors && registerForm.controls['nom'].errors['required']">Le nom est requis.</div>
+                    </div>
+                    <div *ngIf="submitted && registerForm.controls['username'].errors" class="text-danger">
+                        <div *ngIf="registerForm.controls['username'].errors && registerForm.controls['username'].errors['required']">Le nom d'utilisateur est requis.</div>
+                    </div>
+                    <div *ngIf="submitted && registerForm.controls['password'].errors" class="text-danger">
+                        <div *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].errors['required']">Le mot de passe est requis.</div>
+                    </div>
+
+                    <div *ngIf="submitted && registerForm.controls['preferencesStyle'].errors" class="text-danger">
+                        <div *ngIf="registerForm.controls['preferencesStyle'].errors['required']">Le style prefere est requis.</div>
+                    </div>
+                
+
+                    
+             
 
                     <div class="mb-3">
                         <p class="small text-center text-muted">En vous inscrivant, vous confirmez avoir lu et accepté nos avis aux utilisateurs et notre politique de confidentialité.</p>
