@@ -1,4 +1,5 @@
-<div class="product-cart-wrap mb-30">
+<div class="product-cart-wrap mb-30 m-1 cursor-pointer" style="transition: 
+0.5s ease;" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
     <div class="product-img-action-wrap">
         <div class="product-img product-img-zoom">
             <a href="shop-product-right.html">
@@ -7,7 +8,6 @@
             </a>
         </div>
         <div class="product-action-1">
-            <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
             <a aria-label="Add To Favoris" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
             <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
         </div>
@@ -25,8 +25,8 @@
                 <span>createdAt</span>
             </span>
         </div>
-        <div class="product-price">
-            <span><a class="product-price" href="/update/id"> Update </a></span>
+        <div class="product-badges product-badges-mrg">
+            <span class="sale" onmouseover="this.style.backgroundColor='black'" onmouseout="this.style.backgroundColor='#a1cae2'"><a class="text-white" href="/update/id"> Update </a></span>
         </div>
         <div class="product-action-1 show">
             <a aria-label="Favoris" class="action-btn hover-up" href="shop-cart.html"><i class="fi-rs-heart"></i></a>
