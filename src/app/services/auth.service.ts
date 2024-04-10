@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Utilisateur } from '../models/Utilisateur';
 import { Observable, tap } from 'rxjs';
+import { TokenService } from './token.service';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Observable, tap } from 'rxjs';
 })
 export class AuthService {
   url:String="http://localhost:3333/api/v1/users";
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private tokenService: TokenService) {
     
    }
    login(username: string, password: string): Observable<any> {
@@ -17,7 +18,8 @@ export class AuthService {
        .pipe(tap(response => {
          localStorage.setItem('access_token', response.access_token);
          localStorage.setItem('refresh_token', response.refresh_token);
-         localStorage.setItem('expires_in', response.expires_in);
+         localStorage.setItem('expires_in', (parseInt(response.expires_in ) * 1000).toString());
+         this.tokenService.startTokenCheck();
        }));
    }
 
@@ -30,6 +32,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token'); 
+    localStorage.removeItem('expires_in'); 
+    this.tokenService.stopTokenCheck();
   }
   getRefreshToken(): string | null {
     return localStorage.getItem('refresh_token');
@@ -37,13 +41,6 @@ export class AuthService {
   getAccessToken(): string | null {
     return localStorage.getItem('access_token');
   }
-  isTokenExpired(): boolean {
-    const expiresIn = localStorage.getItem('expires_in');
-    if (expiresIn) {
-      const expirationTime = parseInt(expiresIn, 10) * 1000; 
-      return expirationTime < Date.now(); 
-    }
-    return true; 
-  }
+
   
 }
