@@ -34,6 +34,9 @@ export class AuthService {
   getRefreshToken(): string | null {
     return localStorage.getItem('refresh_token');
   }
+  getAccessToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
   isTokenExpired(): boolean {
     const expiresIn = localStorage.getItem('expires_in');
     if (expiresIn) {

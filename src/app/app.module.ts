@@ -16,11 +16,12 @@ import { DashboardComponent } from './components/user-dashboard/dashboard/dashbo
 import { ListVetementsComponent } from './components/user-dashboard/vetements/list-vetements/list-vetements.component';
 import { ItemCardComponent } from './components/user-dashboard/vetements/item-card/item-card.component';
 import { ListEnsembleComponent } from './components/user-dashboard/ensembles/list-ensemble/list-ensemble.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydeveloper/ngx-awesome-popup';
+import { AuthInterceptor } from './services/auth.interceptor.service';
 
 
 
@@ -53,7 +54,9 @@ import { NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydev
     NgxAwesomePopupModule.forRoot(),     
     ToastNotificationConfigModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
