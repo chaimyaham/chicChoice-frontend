@@ -11,7 +11,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  url:String="http://localhost:8088/api/v1/users";
+  url:String="http://localhost:3333/api/v1/users";
   constructor(private http: HttpClient) {
     
    }
@@ -23,6 +23,6 @@ export class AuthService {
   }
 
   register(utilisateur:Utilisateur): Observable<any> {
-    return this.http.post(`${this.url}/signup`,utilisateur, httpOptions);
+    return this.http.post<String>(`${this.url}/signup`,utilisateur);
   }
 }

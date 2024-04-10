@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DialogLayoutDisplay, ToastNotificationInitializer } from '@costlydeveloper/ngx-awesome-popup';
 import { VirtualTimeScheduler } from 'rxjs';
+import { Utilisateur } from 'src/app/models/Utilisateur';
 import { City } from 'src/app/models/city';
 import { Country } from 'src/app/models/country';
 import { State } from 'src/app/models/state';
+import { AuthService } from 'src/app/services/auth.service';
 import { CountrystatecityService } from 'src/app/services/countrystatecity.service';
 
 @Component({
@@ -22,7 +26,11 @@ export class SignUpComponent implements OnInit {
   countryIso!:string;
   stateIso!:string;
   submitted = false;
-  constructor(private countrystatecityService: CountrystatecityService,private formBuilder: FormBuilder) { }
+  errorMessage: string | null = null;
+  constructor(private countrystatecityService: CountrystatecityService,
+    private formBuilder: FormBuilder,
+    private authservice :AuthService,
+    private router: Router) { }
     ngOnInit(): void {
       this.fetchCountry();
       this.registerForm = this.formBuilder.group({
@@ -43,7 +51,6 @@ export class SignUpComponent implements OnInit {
   private fetchCountry(){
     this.countrystatecityService.getCountry().subscribe(data=>{
     this.listcountry = data
-    console.log('Countries fetched', this.listcountry)
     })
   
   }
@@ -57,7 +64,6 @@ export class SignUpComponent implements OnInit {
         this.listState = data;
         this.listCity=[]
         this.selectedState=''
-        console.log('States Retrieved', this.listState);
       });
     }
   }
@@ -71,7 +77,6 @@ export class SignUpComponent implements OnInit {
       this.listCity=data
     }
     else this.listCity = data
-    console.log('Cities retrieved', this.listCity)
   })
   }
   onSubmit() {
@@ -87,10 +92,49 @@ this.submitted=true;
       if(this.selectedState) this.registerForm.value.selectedCity=this.selectedState;
       else this.registerForm.value.selectedCity=this.countrySelected;
     }
+    const user: Utilisateur={
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+      nom: this.registerForm.value.nom,
+      prenom: this.registerForm.value.prenom,
+      username: this.registerForm.value.username,
+      sexe: this.registerForm.value.sexe,
+      role: "USER",
+      ville: this.registerForm.value.selectedCity,
+      pays: this.registerForm.value.countrySelected,
+      preferencesStyle: this.registerForm.value.preferencesStyle
+    }
+    this.authservice.register(user).subscribe(
+      res => {
+        console.log(res);
+        this.registerForm.reset();
+        this.openToast()
+        this.router.navigate(['/login']);
+      },
+      err => {
+        console.log(err);
+        if (err.status === 500 && err.error.code === 'WEB_APPLICATION') {
+          this.errorMessage = "Le nom d'utilisateur ou l'adresse e-mail existe déjà. Veuillez vous connecter.";
+        }else if (err.status === 500 && err.error.error === 'Internal Server Error') {
+          this.errorMessage = "Le serveur est indisponible pour le moment. Veuillez réessayer plus tard.";
+        } else if (err.status === 503) {
+          this.errorMessage = "Une erreur interne du serveur s'est produite. Veuillez réessayer plus tard.";
+        } 
+      }
+    )
 
     
-    console.log(this.registerForm.value);
+  
    
   }
+  openToast() {         
+    const newToastNotification = new ToastNotificationInitializer();
+    newToastNotification.setTitle('Success!!');
+    newToastNotification.setMessage('compte creer avec succes.');
+    newToastNotification.setConfig({      
+      layoutType: DialogLayoutDisplay.SUCCESS,
+     });
+    newToastNotification.openToastNotification$();
+   }
 
 }
