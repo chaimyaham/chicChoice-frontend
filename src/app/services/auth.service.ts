@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Utilisateur } from '../models/Utilisateur';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +13,19 @@ export class AuthService {
     
    }
    login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.url}/login`, {
-      username,
-      password
-    }, httpOptions);
-  }
+    return this.http.post<any>(`${this.url}/login`, { username, password })
+       .pipe(tap(response => {
+         localStorage.setItem('access_token', response.access_token);
+       }));
+   }
 
   register(utilisateur:Utilisateur): Observable<any> {
     return this.http.post<String>(`${this.url}/signup`,utilisateur);
+  }
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('access_token');
+  }
+  logout(): void {
+    localStorage.removeItem('access_token');
   }
 }

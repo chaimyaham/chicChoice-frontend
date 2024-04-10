@@ -6,12 +6,13 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/user-dashboard/dashboard/dashboard.component';
 import { ListVetementsComponent } from './components/user-dashboard/vetements/list-vetements/list-vetements.component';
 import { ListEnsembleComponent } from './components/user-dashboard/ensembles/list-ensemble/list-ensemble.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {path:"",component:HomePageComponent},
   {path:"login", component:LoginComponent},
   {path:"sign-up", component:SignUpComponent},
-  {path:"dashboard", component:DashboardComponent,
+  {path:"dashboard", component:DashboardComponent, canActivate: [AuthGuard],
     children:[
       {path:"vetements", component:ListVetementsComponent},
       {path: "ensembles" , component:ListEnsembleComponent}
