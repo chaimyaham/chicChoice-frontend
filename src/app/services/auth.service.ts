@@ -16,6 +16,8 @@ export class AuthService {
     return this.http.post<any>(`${this.url}/login`, { username, password })
        .pipe(tap(response => {
          localStorage.setItem('access_token', response.access_token);
+         localStorage.setItem('refresh_token', response.refresh_token);
+         localStorage.setItem('expires_in', response.expires_in);
        }));
    }
 
@@ -27,5 +29,18 @@ export class AuthService {
   }
   logout(): void {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token'); 
   }
+  getRefreshToken(): string | null {
+    return localStorage.getItem('refresh_token');
+  }
+  isTokenExpired(): boolean {
+    const expiresIn = localStorage.getItem('expires_in');
+    if (expiresIn) {
+      const expirationTime = parseInt(expiresIn, 10) * 1000; 
+      return expirationTime < Date.now(); 
+    }
+    return true; 
+  }
+  
 }

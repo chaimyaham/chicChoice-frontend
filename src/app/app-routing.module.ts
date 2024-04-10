@@ -7,11 +7,12 @@ import { DashboardComponent } from './components/user-dashboard/dashboard/dashbo
 import { ListVetementsComponent } from './components/user-dashboard/vetements/list-vetements/list-vetements.component';
 import { ListEnsembleComponent } from './components/user-dashboard/ensembles/list-ensemble/list-ensemble.component';
 import { AuthGuard } from './services/auth.guard';
+import { LoginGuard } from './services/login.guard';
 
 const routes: Routes = [
   {path:"",component:HomePageComponent},
-  {path:"login", component:LoginComponent},
-  {path:"sign-up", component:SignUpComponent},
+  {path:"login", component:LoginComponent,canActivate: [LoginGuard] },
+  {path:"sign-up", component:SignUpComponent,canActivate: [LoginGuard] },
   {path:"dashboard", component:DashboardComponent, canActivate: [AuthGuard],
     children:[
       {path:"vetements", component:ListVetementsComponent},
