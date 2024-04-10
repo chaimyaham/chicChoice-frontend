@@ -64,4 +64,8 @@ export class VetementService {
     const url = `${this.baseUrl}/couleur/${couleurId}/utilisateur/${userId}?page=${page}&size=${size}`;
     return this.http.get<Page<VetementResponse>>(url);
   }
+  getAllVetementsByUserId(utilisateurId : number, page: number, size: number): Observable<Page<VetementResponse>> {
+    const url = `${this.baseUrl}/utilisateur/${utilisateurId}?page=${page}&size=${size}`;
+    return this.http.get<Page<VetementResponse>>(url);
+  }
 }

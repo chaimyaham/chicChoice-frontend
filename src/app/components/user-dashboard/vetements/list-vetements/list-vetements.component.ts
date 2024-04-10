@@ -16,7 +16,7 @@ export class ListVetementsComponent implements OnInit {
     this.getAllVetements();
   }
   getAllVetements(){
-    this.vetementService.getAllVetements(0, 10).subscribe(
+    this.vetementService.getAllVetementsByUserId(22,0, 10).subscribe(
       (data:Page<VetementResponse>) => {
         console.log(data);
       },

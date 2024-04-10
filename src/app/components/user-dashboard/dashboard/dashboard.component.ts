@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   accessToken!: string;
   firstName!:string;
   lastName!:string;
+
   constructor(private authService:AuthService,private router:Router) { }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
     const address = payloadData.address;
     this.firstName=payloadData.given_name;
     this.lastName=payloadData.family_name;
+
    
   }
   toggleActive(index: number) {
