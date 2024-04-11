@@ -16,7 +16,6 @@ export class MediaService {
   uploadMedia(file: File): Observable<Media> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-
     return this.http.post<Media>(this.baseUrl, formData);
   }
 

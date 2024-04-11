@@ -13,14 +13,15 @@ export class ListVetementsComponent implements OnInit {
   userId!:string
   vetmentPage!:  Page<VetementResponse>
   errorMsg:string| null =null;
+  currentPage : number = 0;
   constructor(private vetementService:VetementService, private tokenService:TokenService) { }
 
   ngOnInit(): void {
     this.userId=this.tokenService.getUserID();
-    this.getAllVetements();
+    this.getAllVetements(this.currentPage);
   }
-  getAllVetements(){
-    this.vetementService.getAllVetementsByUserId(parseInt(this.userId),0, 10).subscribe(
+  getAllVetements(page : number){
+    this.vetementService.getAllVetementsByUserId(parseInt(this.userId),page, 4).subscribe(
       (data:Page<VetementResponse>) => {
         console.log(data);
         this.vetmentPage=data;
@@ -31,5 +32,24 @@ export class ListVetementsComponent implements OnInit {
       }
     );
   }
+  nextPage() {
+    if (this.currentPage < this.vetmentPage.totalPages - 1) {
+      this.currentPage++;
+      this.getAllVetements(this.currentPage);
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.getAllVetements(this.currentPage);
+    }
+  }
+  onCategoryChange(event: any) {
+    const selectedCategory = event.target.value;
+    if (selectedCategory) {
+        console.log('Catégorie sélectionnée : ', selectedCategory);
+    }
+}
 
 }

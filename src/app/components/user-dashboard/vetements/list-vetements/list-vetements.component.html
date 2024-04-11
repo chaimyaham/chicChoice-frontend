@@ -1,7 +1,17 @@
 <div class="content-header">
     <h2 class="content-title">Blank page </h2>
     <div>
-        <a href="#" class="btn btn-primary">Create new</a>
+        <a  [routerLink]="['/dashboard/vetement/add']" class="btn btn-primary">Create new</a>
+        <label for="categoryFilter" class="mr-2">Filtrer par catégorie :</label>
+        <select id="categoryFilter" class="form-select" (change)="onCategoryChange($event)">
+            <option value="">Toutes les catégories</option>
+            <option value="HAUT"> Haut </option>
+            <option value="BAS"> Bas </option>
+            <option value="CHAUSSURE"> Chaussure </option>
+            <option value="VESTE"> Veste </option>
+            <option value="ACCESSOIRE"> Accessoire </option>
+            
+        </select>
     </div>
 </div>
 <div class="card mb-4">
@@ -18,5 +28,10 @@
                 <ul *ngIf="errorMsg" class="text-danger"><li>{{ errorMsg }}</li></ul>
             </div>
         </div>
+        <div class="row d-flex gx-2 justify-content-end mb-4 mr-2 gap-2 pl-2">
+            <button  style="background-color: whitesmoke; width: 30px;height: 30px;border-radius: 50%;color: #0E8178;border:1px solid #0E8178 "class="d-flex align-items-center ml-2 justify-content-center  " (click)="previousPage()">&lt;</button>
+            <button style="background-color: whitesmoke; width: 30px;height: 30px;border-radius: 50%;color: #0E8178; border:1px solid #0E8178 " class="d-flex align-items-center ml-2 justify-content-center" (click)="nextPage()">&gt;</button>
+          </div>
     </div>
+ 
 </div> 

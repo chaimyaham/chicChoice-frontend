@@ -1,0 +1,101 @@
+<section class="content-main">
+    <div class="row">
+        <div class="col-9">
+            <div class="content-header">
+                <h2 class="content-title">Ajouter de nouveau Vetement</h2>
+              
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Basic</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="vetementForm" #vetementFormRef="ngForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-4">
+                            <label for="product_name" class="form-label">Marque</label>
+                            <input formControlName="marque" type="text" placeholder="Type here" class="form-control" id="product_name">
+                            <div *ngIf="vetementForm.controls['marque'].invalid && (vetementForm.controls['marque'].dirty || vetementForm.controls['marque'].touched)">
+                                <small class="text-danger">Marque est requis</small>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Note</label>
+                            <textarea formControlName="note" placeholder="Type here" class="form-control" rows="4"></textarea>
+                            <div *ngIf="vetementForm.controls['note'].invalid && (vetementForm.controls['note'].dirty || vetementForm.controls['note'].touched)">
+                                <small class="text-danger">Note est requise</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                        
+                            <div class="col">
+                                <label class="form-label">Category</label>
+                                <select class="form-select" formControlName="category">
+                                    <option value="HAUT"> Haut </option>
+                                    <option value="BAS"> Bas </option>
+                                    <option value="CHAUSSURE"> Chaussure </option>
+                                    <option value="VESTE"> Veste </option>
+                                    <option value="ACCESSOIRE"> Accessoire </option>
+                                 
+                                </select>
+                                <div *ngIf="vetementForm.controls['category'].invalid && (vetementForm.controls['category'].dirty || vetementForm.controls['category'].touched)">
+                                    <small class="text-danger">Catégorie est requise</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Couleur</h4>
+                </div>
+            
+                <div class="card-body">
+                    <div class="row gx-2">
+                      <ul class="list-filter color-filter">
+                        <li *ngFor="let color of couleur.content" [ngClass]="{'active': color === selectedColor}" 
+                        (click)="selectColor(color)">
+                          <a [attr.data-color]="color.nom"><span [style.background-color]="color.hex" class="product-color"></span></a>
+                        </li>
+                      </ul>
+                      <div class="row d-flex gx-2 justify-content-end mt-2">
+                        <button  style="background-color: whitesmoke; width: 30px;height: 30px;border-radius: 50%;color: #0E8178;border:1px solid #0E8178 "class="d-flex align-items-center ml-2 justify-content-center " (click)="previousPage()">&lt;</button>
+                        <button style="background-color: whitesmoke; width: 30px;height: 30px;border-radius: 50%;color: #0E8178; border:1px solid #0E8178 " class="d-flex align-items-center ml-2 justify-content-center" (click)="nextPage()">&gt;</button>
+                      </div>
+
+                    </div>
+                  </div>
+
+            </div> 
+            <div *ngIf="submitted && !selectedColor" class="text-danger mt-2">
+                Veuillez sélectionner une couleur.
+            </div>
+            <div>
+                <button type="submit" class="btn btn-md rounded font-sm hover-up text-white mt-2" style="background-color: #0E8178;" (click)="submitForm()">Enregistrer</button>
+            </div>
+           
+        </div>
+        <div class="col-lg-3">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Media</h4>
+                </div>
+                <div class="card-body">
+                    <div class="input-upload">
+                        <img src="../../../../../assets/imgs/theme/upload.svg" alt="media" [src]="getMediaUrl()"  >
+                        <input class="form-control" type="file" (change)="onFileChange($event)">
+                    </div>
+                </div>
+                <ul *ngIf="submitted && !vetementForm.value.media" class="text-danger mt-2">
+                   <li> Veuillez selectionner un media.</li>
+                </ul>
+            </div> <!-- card end// -->
+            <ul *ngIf="submitted && vetementForm.invalid" class="text-danger ">
+               <li> Le formulaire est invalide. Veuillez remplir tout les champs invalides.</li>
+            </ul>
+            <ul *ngIf="errorMsg" class="text-danger"><li>{{ errorMsg }}</li></ul>
+        </div>
+    </div>
+</section> 

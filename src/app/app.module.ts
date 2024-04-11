@@ -22,6 +22,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydeveloper/ngx-awesome-popup';
 import { AuthInterceptor } from './services/auth.interceptor.service';
+import { AddVetementComponent } from './components/user-dashboard/vetements/add-vetement/add-vetement.component';
 
 
 
@@ -40,7 +41,8 @@ import { AuthInterceptor } from './services/auth.interceptor.service';
     DashboardComponent,
     ListVetementsComponent,
     ItemCardComponent,
-    ListEnsembleComponent
+    ListEnsembleComponent,
+    AddVetementComponent
   ],
   imports: [
     BrowserModule,

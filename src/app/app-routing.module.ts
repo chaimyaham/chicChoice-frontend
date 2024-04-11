@@ -8,6 +8,7 @@ import { ListVetementsComponent } from './components/user-dashboard/vetements/li
 import { ListEnsembleComponent } from './components/user-dashboard/ensembles/list-ensemble/list-ensemble.component';
 import { AuthGuard } from './services/auth.guard';
 import { LoginGuard } from './services/login.guard';
+import { AddVetementComponent } from './components/user-dashboard/vetements/add-vetement/add-vetement.component';
 
 const routes: Routes = [
   {path:"",component:HomePageComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path:"dashboard", component:DashboardComponent, canActivate: [AuthGuard],
     children:[
       {path:"vetements", component:ListVetementsComponent},
-      {path: "ensembles" , component:ListEnsembleComponent}
+      {path: "ensembles" , component:ListEnsembleComponent},
+      {path: "vetement/add" , component:AddVetementComponent}
     ]}
 ];
 
