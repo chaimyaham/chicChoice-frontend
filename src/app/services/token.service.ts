@@ -52,7 +52,7 @@ export class TokenService {
   startTokenCheck(): void {
     const checkIntervalMinutes = 1;
     this.tokenCheckInterval = interval(checkIntervalMinutes * 60 * 1000).subscribe(() => {
-      const new_expires_in = parseInt(localStorage.getItem('expires_in')||'') - (1*60*1000);
+      const new_expires_in = parseInt(localStorage.getItem('expires_in')||'') - (1*60*1000)-420000;
       localStorage.setItem('expires_in',new_expires_in.toString())
       this.redirectToLoginIfExpired();
     });

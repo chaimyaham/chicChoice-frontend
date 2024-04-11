@@ -11,6 +11,8 @@ import { VetementService } from 'src/app/services/vetement/vetement.service';
 })
 export class ListVetementsComponent implements OnInit {
   userId!:string
+  vetmentPage!:  Page<VetementResponse>
+  errorMsg:string| null =null;
   constructor(private vetementService:VetementService, private tokenService:TokenService) { }
 
   ngOnInit(): void {
@@ -21,9 +23,11 @@ export class ListVetementsComponent implements OnInit {
     this.vetementService.getAllVetementsByUserId(parseInt(this.userId),0, 10).subscribe(
       (data:Page<VetementResponse>) => {
         console.log(data);
+        this.vetmentPage=data;
       },
       error => {
         console.log(error);
+       this.errorMsg=error.error.message
       }
     );
   }
