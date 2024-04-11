@@ -9,7 +9,10 @@ import { MediaService } from 'src/app/services/media/media.service';
 })
 export class ItemCardComponent implements OnInit {
   @Input() vetement:any;
-  media!:Media;
+  media:Media={
+    id:0,
+    imageUrl:"assets/imgs/shop/product-1-2.jpg"
+  };
   constructor(private mediaService:MediaService) { }
 
   ngOnInit(): void {

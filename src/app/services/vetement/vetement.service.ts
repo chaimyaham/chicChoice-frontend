@@ -45,7 +45,7 @@ export class VetementService {
     return this.http.get<Page<VetementResponse>>(url);
   }
 
-  getVetementsByCategoryAndUser(category: Category, userId: number, page: number, size: number): Observable<Page<VetementResponse>> {
+  getVetementsByCategoryAndUser(category: string, userId: number, page: number, size: number): Observable<Page<VetementResponse>> {
     const url = `${this.baseUrl}/categorie/${category}/utilisateur/${userId}?page=${page}&size=${size}`;
     return this.http.get<Page<VetementResponse>>(url);
   }

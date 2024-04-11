@@ -2,16 +2,7 @@
     <h2 class="content-title">Blank page </h2>
     <div>
         <a  [routerLink]="['/dashboard/vetement/add']" class="btn btn-primary">Create new</a>
-        <label for="categoryFilter" class="mr-2">Filtrer par catégorie :</label>
-        <select id="categoryFilter" class="form-select" (change)="onCategoryChange($event)">
-            <option value="">Toutes les catégories</option>
-            <option value="HAUT"> Haut </option>
-            <option value="BAS"> Bas </option>
-            <option value="CHAUSSURE"> Chaussure </option>
-            <option value="VESTE"> Veste </option>
-            <option value="ACCESSOIRE"> Accessoire </option>
-            
-        </select>
+       
     </div>
 </div>
 <div class="card mb-4">
@@ -20,6 +11,15 @@
     </header>
     <div class="card-body">
         <h5 class="card-title">Card content</h5>
+        <select id="categoryFilter" class="form-select" (change)="onCategoryChange($event)">
+            <option value="Tout">Toutes les catégories</option>
+            <option value="HAUT"> Haut </option>
+            <option value="BAS"> Bas </option>
+            <option value="CHAUSSURE"> Chaussure </option>
+            <option value="VESTE"> Veste </option>
+            <option value="ACCESSOIRE"> Accessoire </option>
+            
+        </select>
         <div class="mt-4">
             <div class="col d-flex flex-wrap">
                 <div *ngFor="let vetement of vetmentPage.content" class="col-lg-3 col-md-4 col-sm-6">

@@ -34,22 +34,54 @@ export class ListVetementsComponent implements OnInit {
   }
   nextPage() {
     if (this.currentPage < this.vetmentPage.totalPages - 1) {
-      this.currentPage++;
-      this.getAllVetements(this.currentPage);
+        this.currentPage++;
+        if (this.vetmentPage.content.length > 0) {
+            const selectedCategory = (document.getElementById('categoryFilter') as HTMLSelectElement).value;
+            if (selectedCategory === "Tout") {
+                this.getAllVetements(this.currentPage);
+            } else {
+                this.getVetementByCategory(selectedCategory, this.currentPage);
+            }
+        } else {
+            this.getAllVetements(this.currentPage);
+        }
     }
-  }
+}
 
-  previousPage() {
+previousPage() {
     if (this.currentPage > 0) {
-      this.currentPage--;
-      this.getAllVetements(this.currentPage);
+        this.currentPage--;
+        if (this.vetmentPage.content.length > 0) {
+            const selectedCategory = (document.getElementById('categoryFilter') as HTMLSelectElement).value;
+            if (selectedCategory === "Tout") {
+                this.getAllVetements(this.currentPage);
+            } else {
+                this.getVetementByCategory(selectedCategory, this.currentPage);
+            }
+        } else {
+            this.getAllVetements(this.currentPage);
+        }
     }
-  }
+}
   onCategoryChange(event: any) {
     const selectedCategory = event.target.value;
-    if (selectedCategory) {
-        console.log('Catégorie sélectionnée : ', selectedCategory);
+    if (selectedCategory=="Tout") {
+      this.getAllVetements(this.currentPage);
+    }else{
+      this.getVetementByCategory(selectedCategory,this.currentPage)
     }
+}
+getVetementByCategory(category:string,page:number){
+  this.vetementService.getVetementsByCategoryAndUser(category,parseInt(this.userId),page, 4).subscribe(
+    (data:Page<VetementResponse>) => {
+      console.log(data);
+      this.vetmentPage=data;
+    },
+    error => {
+      console.log(error);
+     this.errorMsg=error.error.message
+    }
+  );
 }
 
 }
