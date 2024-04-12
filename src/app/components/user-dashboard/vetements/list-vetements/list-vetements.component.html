@@ -23,7 +23,7 @@
         <div class="mt-4">
             <div class="col d-flex flex-wrap">
                 <div *ngFor="let vetement of vetmentPage.content" class="col-lg-3 col-md-4 col-sm-6">
-                    <app-item-card (deleteItem)="confirmDelete(vetement.id)" [vetement]="vetement"></app-item-card>
+                    <app-item-card (deleteItem)="confirmDelete(vetement.id)" (vetementUpdated)="onVetementUpdated()" [vetement]="vetement"></app-item-card>
                 </div>
                 <ul *ngIf="errorMsg" class="text-danger"><li>{{ errorMsg }}</li></ul>
             </div>

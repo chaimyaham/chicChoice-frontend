@@ -87,6 +87,7 @@ confirmDelete(itemId: number): void {
   if (confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
     this.onDeleteItem(itemId);
   } else {
+    return
   }
 }
 onDeleteItem(itemId:number){
@@ -101,6 +102,8 @@ onDeleteItem(itemId:number){
     }
   );
 }
-
+onVetementUpdated(): void {
+ this.getAllVetements(this.currentPage)
+}
 
 }

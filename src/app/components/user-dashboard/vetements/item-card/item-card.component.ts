@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Media } from 'src/app/models/media';
 import { MediaService } from 'src/app/services/media/media.service';
+import { VetementService } from 'src/app/services/vetement/vetement.service';
 
 @Component({
   selector: 'app-item-card',
@@ -10,11 +11,12 @@ import { MediaService } from 'src/app/services/media/media.service';
 export class ItemCardComponent implements OnInit {
   @Input() vetement:any;
   @Output() deleteItem = new EventEmitter<void>();
+  @Output() vetementUpdated = new EventEmitter<any>();
   media:Media={
     id:0,
     imageUrl:"assets/imgs/shop/product-1-2.jpg"
   };
-  constructor(private mediaService:MediaService) { }
+  constructor(private mediaService:MediaService, private vetementService:VetementService) { }
 
   ngOnInit(): void {
     console.log("frromm child")
@@ -37,5 +39,15 @@ export class ItemCardComponent implements OnInit {
 
   onDeleteClick(): void {
     this.deleteItem.emit();
+  }
+  toggleFavoris(): void {
+    this.vetementService.marquerVetementCommeFavori(this.vetement.id).subscribe(
+      response => { 
+        this.vetementUpdated.emit();
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 }
