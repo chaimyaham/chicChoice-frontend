@@ -23,10 +23,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydeveloper/ngx-awesome-popup';
 import { AuthInterceptor } from './services/auth.interceptor.service';
 import { AddVetementComponent } from './components/user-dashboard/vetements/add-vetement/add-vetement.component';
+import { PlanificationComponent } from './components/user-dashboard/planification/planification.component';
+import { CalendarModule, DateAdapter,CalendarNativeDateFormatter, DateFormatterParams, CalendarDateFormatter } from 'angular-calendar';
 
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns'
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr'
+registerLocaleData(localeFr ,'fr')
+class CustomDateFormatter extends CalendarNativeDateFormatter {
+  public override dayViewHour({ date, locale }: DateFormatterParams): string {
+      return new Intl.DateTimeFormat(locale,{hour: 'numeric' , minute:'numeric'}).format(date);
+  }
+  public override weekViewHour({ date, locale }: DateFormatterParams): string {
+    return new Intl.DateTimeFormat(locale,{hour: 'numeric' , minute:'numeric'}).format(date);
 
+  }
 
-
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +55,8 @@ import { AddVetementComponent } from './components/user-dashboard/vetements/add-
     ListVetementsComponent,
     ItemCardComponent,
     ListEnsembleComponent,
-    AddVetementComponent
+    AddVetementComponent,
+    PlanificationComponent
   ],
   imports: [
     BrowserModule,
@@ -54,11 +68,17 @@ import { AddVetementComponent } from './components/user-dashboard/vetements/add-
     FormsModule,
     ReactiveFormsModule,
     NgxAwesomePopupModule.forRoot(),     
-    ToastNotificationConfigModule.forRoot()
+    ToastNotificationConfigModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {provide : CalendarDateFormatter , useClass : CustomDateFormatter}
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

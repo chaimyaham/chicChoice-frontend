@@ -23,6 +23,7 @@ export class AddVetementComponent implements OnInit {
   vetementForm!: FormGroup;
   submitted = false;
   userId!:number;
+  loading = false;
   @ViewChild('vetementFormRef') vetementFormRef!: NgForm;
 
 
@@ -110,6 +111,7 @@ export class AddVetementComponent implements OnInit {
       console.log(this.vetementForm.value)
       console.log(this.selectedColor)
       // ajouter media to media db 
+      this.loading = true;
       this.mediaService.uploadMedia(this.vetementForm.value.media).subscribe(
         response => {
           console.log(response);
@@ -127,16 +129,19 @@ export class AddVetementComponent implements OnInit {
           this.vetementService.createVetement(VetementRequest).subscribe(
             response => {
                           console.log(response);
+                          this.loading = false;
                           this.router.navigate(['/dashboard/vetements']);
                         },
                         error => {
                           console.log(error);
+                          this.loading = false;
                           this.errorMsg=error.error.message
                         }
           )
         },
         error => {
           console.log(error);
+          this.loading = false;
           this.errorMsg=error.error.message
         }
       );

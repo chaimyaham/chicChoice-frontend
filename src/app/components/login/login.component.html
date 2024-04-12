@@ -7,20 +7,14 @@
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <input class="form-control" formControlName="username" placeholder="username" type="text">
-                        <div *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)"
+                        <div *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched) || submitted && loginForm.controls['username'].errors"
                         class="text-danger text-center small text-muted mb-15">Nom d'utilisateur est requis</div>
-                        <div *ngIf="submitted && loginForm.controls['username'].errors" class="text-danger">
-                            <div *ngIf="loginForm.controls['username'].errors['required']" class="text-center small text-muted mb-15">Username est requis.</div>
-                        </div>
+                 
                     </div> 
                     <div class="mb-3">
                         <input class="form-control" formControlName="password"  placeholder="Password" type="password">
-                        <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
+                        <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched) || submitted && loginForm.controls['password'].errors"
                            class="text-danger text-center small text-muted mb-15">Mot de passe est requis</div>
-
-                            <div *ngIf="submitted && loginForm.controls['password'].errors" class="text-danger" >
-                                <div *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].errors['required']" class="text-center small text-muted mb-15">password requis.</div>
-                            </div>
                     </div> 
                     <div class="mb-3">
                         <a href="#" class="float-end font-sm text-muted">Forgot password?</a>
