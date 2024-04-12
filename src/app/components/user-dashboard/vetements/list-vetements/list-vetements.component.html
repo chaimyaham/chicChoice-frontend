@@ -1,16 +1,16 @@
 <div class="content-header">
-    <h2 class="content-title">Blank page </h2>
+    <h2 class="content-title">Ma garde-robe </h2>
     <div>
-        <a  [routerLink]="['/dashboard/vetement/add']" class="btn btn-primary">Create new</a>
+        <a  [routerLink]="['/dashboard/vetement/add']" class="btn btn-primary">Créer un nouveau look</a>
        
     </div>
 </div>
 <div class="card mb-4">
     <header class="card-header">
-        <h4>Card header</h4>
+        <h4>Liste des vêtements</h4>
     </header>
     <div class="card-body">
-        <h5 class="card-title">Card content</h5>
+        <h5 class="card-title">mes vetements</h5>
         <select id="categoryFilter" class="form-select" (change)="onCategoryChange($event)">
             <option value="Tout">Toutes les catégories</option>
             <option value="HAUT"> Haut </option>
@@ -23,7 +23,7 @@
         <div class="mt-4">
             <div class="col d-flex flex-wrap">
                 <div *ngFor="let vetement of vetmentPage.content" class="col-lg-3 col-md-4 col-sm-6">
-                    <app-item-card [vetement]="vetement"></app-item-card>
+                    <app-item-card (deleteItem)="confirmDelete(vetement.id)" [vetement]="vetement"></app-item-card>
                 </div>
                 <ul *ngIf="errorMsg" class="text-danger"><li>{{ errorMsg }}</li></ul>
             </div>

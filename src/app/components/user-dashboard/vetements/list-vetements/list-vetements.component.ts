@@ -83,5 +83,24 @@ getVetementByCategory(category:string,page:number){
     }
   );
 }
+confirmDelete(itemId: number): void {
+  if (confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
+    this.onDeleteItem(itemId);
+  } else {
+  }
+}
+onDeleteItem(itemId:number){
+  this.vetementService.deleteVetementById(itemId).subscribe(
+    response => {
+      console.log(response);
+      this.getAllVetements(this.currentPage);
+    },
+    error => {
+      console.log(error);
+      this.errorMsg="couldn't delete the item";
+    }
+  );
+}
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Media } from 'src/app/models/media';
 import { MediaService } from 'src/app/services/media/media.service';
 
@@ -9,6 +9,7 @@ import { MediaService } from 'src/app/services/media/media.service';
 })
 export class ItemCardComponent implements OnInit {
   @Input() vetement:any;
+  @Output() deleteItem = new EventEmitter<void>();
   media:Media={
     id:0,
     imageUrl:"assets/imgs/shop/product-1-2.jpg"
@@ -34,4 +35,7 @@ export class ItemCardComponent implements OnInit {
     );
   }
 
+  onDeleteClick(): void {
+    this.deleteItem.emit();
+  }
 }
