@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +29,12 @@ import { CalendarModule, DateAdapter,CalendarNativeDateFormatter, DateFormatterP
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns'
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr'
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { EnsempleItemComponent } from './components/user-dashboard/ensembles/ensemple-item/ensemple-item.component';
 registerLocaleData(localeFr ,'fr')
+
+@Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
   public override dayViewHour({ date, locale }: DateFormatterParams): string {
       return new Intl.DateTimeFormat(locale,{hour: 'numeric' , minute:'numeric'}).format(date);
@@ -56,7 +61,9 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     ItemCardComponent,
     ListEnsembleComponent,
     AddVetementComponent,
-    PlanificationComponent
+    PlanificationComponent,
+    EnsempleItemComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -73,6 +80,8 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    FlatpickrModule.forRoot(),
+    NgbModalModule,
     
   ],
   providers: [

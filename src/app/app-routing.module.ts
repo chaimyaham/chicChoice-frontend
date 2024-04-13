@@ -15,12 +15,13 @@ const routes: Routes = [
   {path:"",component:HomePageComponent},
   {path:"login", component:LoginComponent,canActivate: [LoginGuard] },
   {path:"sign-up", component:SignUpComponent,canActivate: [LoginGuard] },
-  {path:"dashboard", component:DashboardComponent, 
+  {path:"dashboard", component:DashboardComponent, canActivate: [AuthGuard],
     children:[
       {path:"vetements", component:ListVetementsComponent},
       {path: "ensembles" , component:ListEnsembleComponent},
       {path: "vetement/add" , component:AddVetementComponent},
       {path: "planifications", component:PlanificationComponent},
+      
     ]}
 ];
 

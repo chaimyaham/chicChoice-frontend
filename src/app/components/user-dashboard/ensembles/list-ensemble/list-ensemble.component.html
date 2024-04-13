@@ -13,8 +13,8 @@
         <h5 class="card-title">mes creation</h5>
         <div class="mt-4">
             <div class="col d-flex flex-wrap">
-                <div  class="col-lg-3 col-md-4 col-sm-6">
-                    <app-item-card ></app-item-card>
+                <div *ngFor="let ensemble of ensemblePage.content" class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-around flex-wrap gap-1">
+                  <app-ensemple-item [ensemble]="ensemble"></app-ensemple-item>
                 </div>
             </div>
         </div>

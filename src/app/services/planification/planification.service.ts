@@ -52,9 +52,6 @@ export class PlanificationService {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  supprimerPlanificationsParUtilisateur(userId: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/utilisateur/${userId}`);
-  }
 
   getPlanificationByDateAndUtilisateurId(date: Date, userId: number): Observable<Planification> {
     const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;

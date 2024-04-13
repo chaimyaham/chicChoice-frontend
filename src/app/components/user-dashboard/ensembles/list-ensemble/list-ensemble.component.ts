@@ -24,6 +24,7 @@ export class ListEnsembleComponent implements OnInit {
     this.ensembleService.obtenirEnsemblesCreerParUser(parseInt(this.userId)).subscribe(
       res => {
           console.log(res);
+          this.ensemblePage=res;
         },
         erreur=>{
           console.log(erreur);
