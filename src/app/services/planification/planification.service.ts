@@ -40,7 +40,7 @@ export class PlanificationService {
     return this.http.get<Page<Planification>>(`${this.baseUrl}/all`, { params });
   }
 
-  updatePlanification(planification: Planification, id: number): Observable<Planification> {
+  updatePlanification(planification: any, id: number): Observable<Planification> {
     return this.http.put<Planification>(`${this.baseUrl}/${id}`, planification);
   }
 
