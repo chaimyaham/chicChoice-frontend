@@ -59,4 +59,10 @@
     border-radius: 5px; 
     font-size: 14px; 
   }
+  .custom-divider {
+    border: none; 
+    height: 3px;
+    background-color: #0E8178; 
+    margin: 10px 0; 
+  }
   

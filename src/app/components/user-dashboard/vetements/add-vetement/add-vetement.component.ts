@@ -47,7 +47,7 @@ export class AddVetementComponent implements OnInit {
 
   }
   getAllColors(page :number){
-    this.couleurService.getAllColors(page,14).subscribe(res=>{
+    this.couleurService.getAllColors(page,32).subscribe(res=>{
           console.log(res);
           this.couleur=res;
         },

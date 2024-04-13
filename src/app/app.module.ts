@@ -32,6 +32,7 @@ import localeFr from '@angular/common/locales/fr'
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { EnsempleItemComponent } from './components/user-dashboard/ensembles/ensemple-item/ensemple-item.component';
+import { UpdatePlanificationComponent } from './components/user-dashboard/planification/update-planification/update-planification.component';
 registerLocaleData(localeFr ,'fr')
 
 @Injectable()
@@ -63,6 +64,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     AddVetementComponent,
     PlanificationComponent,
     EnsempleItemComponent,
+    UpdatePlanificationComponent,
   
   ],
   imports: [

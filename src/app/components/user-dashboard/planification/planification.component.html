@@ -99,9 +99,10 @@
   <div class="custom-modal">
     <div class="custom-modal-header">
       <h5 class="custom-modal-title m-1">Details de la planification</h5>
-      <hr>
+      
       <button class="custom-close-btn" (click)="closeModal()">&times;</button>
     </div>
+    <hr class="custom-divider">
     <div class="custom-modal-body">
      
       <p class="mt-2"style="color: #11837A;">{{ selectedEvent.event.title }}</p>
@@ -109,13 +110,16 @@
         <li>Date Debut: <span class="text-secondary">{{ selectedEvent.event.start | date: 'dd/MM/yyyy HH:mm:ss' }}</span></li>
         <li>Date Fin: <span class="text-danger">{{ selectedEvent.event.end | date: 'dd/MM/yyyy HH:mm:ss' }}</span></li>
     </ul>
-    <p style="color: black;">liste des ensemble</p>
-    <div class="d-flex justify-content-around gap-2"  *ngIf="ensembleOftheevent.length!=0">
+    <hr class="custom-divider">
+    <p style="color: #0E8178;">liste des ensemble</p>
+    <div *ngIf="ensembleOftheevent.length === 0">
+      <small class="mb-2" style="color: #ccc;">Pas d'ensemble ajoutee à cette planification</small>
+    </div>
+    <div class="d-flex justify-content-around gap-2">
       <div class="p-1 rounded-1" *ngFor="let ensemble of ensembleOftheevent">
-
-        <app-ensemple-item  [ensemble]="ensemble"></app-ensemple-item>
+        <app-ensemple-item [ensemble]="ensemble"></app-ensemple-item>
       </div>
-      <a class="rounded-icon d-flex align-items-center justify-content-center "style="width: 30px; height: 30px; background-color: #0E8178; color:white;" title="Ajouter un ensemble">
+      <a class="rounded-icon d-flex align-items-center justify-content-center" [routerLink]="['/dashboard/planifications/update',selectedEvent.event.meta.id]"  style="width: 30px; height: 30px; background-color: #0E8178; color:white;" title="Ajouter un ensemble">
         <i class="icon material-icons md-add_circle"></i>
       </a>
     </div>
