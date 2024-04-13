@@ -6,7 +6,6 @@ import { EnsembleResponse } from 'src/app/models/ensemble-response';
 import { Page } from 'src/app/models/page';
 import { Planification } from 'src/app/models/planification';
 import { EnsembleService } from 'src/app/services/ensembles/ensemble.service';
-import { MediaService } from 'src/app/services/media/media.service';
 import { PlanificationService } from 'src/app/services/planification/planification.service';
 import { TokenService } from 'src/app/services/token.service';
 

@@ -5,6 +5,9 @@
         </div>
     </figure>
     <p style="color:black">{{ensemble.nomDeLEnsemble}}</p>
+   <div class="d-flex justify-content-center align-items-center">
     <a aria-label="Favoris" class="action-btn hover-up heartt" (click)="toggleFavoris()" [ngStyle]="{ 'background-color': isFavoris ? '#0E8178' : 'white', 'color': isFavoris ? 'white' : '#0E8178' }"><i class="fi-rs-heart"></i></a>
+    <a aria-label="Delete" class="action-btn hover-up heartt" style="color: rgb(188, 0, 0);"  ><i class="fi-rs-trash"></i></a>
+   </div>
 
 </div>

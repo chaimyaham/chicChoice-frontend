@@ -1,0 +1,71 @@
+<section class="content-main">
+    <div class="row">
+        <div class="col-9">
+            <div class="content-header">
+                <h2 class="content-title">Cree un ensemble</h2>
+              
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Mes Vetements</h4>
+                </div>
+                <div class="card-body">
+                    <select id="categoryFilter" class="form-select" (change)="onCategoryChange($event)">
+                        <option value="Tout">Toutes les catégories</option>
+                        <option value="HAUT"> Haut </option>
+                        <option value="BAS"> Bas </option>
+                        <option value="CHAUSSURE"> Chaussure </option>
+                        <option value="VESTE"> Veste </option>
+                        <option value="ACCESSOIRE"> Accessoire </option>
+                        
+                    </select>
+                    <div class="mt-4">
+                        <div class="col d-flex flex-wrap">
+                            <div *ngFor="let vetement of vetmentPage.content" class="col-lg-6 col-md-6 col-sm-6 vetement-card">
+                                <input
+                                class="custom-radio mt-1"
+                                type="radio"
+                                name="ensembleSelection"
+                                [value]="vetement.id"
+                                (change)="selectVetement($event)"
+                              />
+                                <app-item-card   (deleteItem)="confirmDelete(vetement.id)" (vetementUpdated)="onVetementUpdated()" [vetement]="vetement"></app-item-card>
+                            </div>
+                            <ul *ngIf="errorMsg" class="text-danger"><li>{{ errorMsg }}</li></ul>
+                        </div>
+                    </div>
+                    <div class="row d-flex gx-2 justify-content-end mb-4 mr-2 gap-2 pl-2">
+                        <button  style="background-color: whitesmoke; width: 30px;height: 30px;border-radius: 50%;color: #0E8178;border:1px solid #0E8178 "class="d-flex align-items-center ml-2 justify-content-center  " (click)="previousPage()">&lt;</button>
+                        <button style="background-color: whitesmoke; width: 30px;height: 30px;border-radius: 50%;color: #0E8178; border:1px solid #0E8178 " class="d-flex align-items-center ml-2 justify-content-center" (click)="nextPage()">&gt;</button>
+                      </div>
+                 
+                </div>
+            </div> 
+      
+          
+            <div>
+                <button type="submit" class="btn btn-md rounded font-sm hover-up text-white mt-2" style="background-color: #0E8178;" >Enregistrer</button>
+            </div>
+           
+        </div>
+        <div class="col-lg-3">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Look</h4>
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let media of mediaDetailsList">
+                        <img style="width: 100px;height: 100px;" [src]="media.imageUrl" />
+                        
+
+                    </div>
+                </div>
+               
+            </div> 
+        
+          
+        </div>
+    </div>
+</section> 

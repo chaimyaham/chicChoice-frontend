@@ -33,6 +33,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { EnsempleItemComponent } from './components/user-dashboard/ensembles/ensemple-item/ensemple-item.component';
 import { UpdatePlanificationComponent } from './components/user-dashboard/planification/update-planification/update-planification.component';
+import { AddEnsembleComponent } from './components/user-dashboard/ensembles/add-ensemble/add-ensemble.component';
+
 registerLocaleData(localeFr ,'fr')
 
 @Injectable()
@@ -65,6 +67,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     PlanificationComponent,
     EnsempleItemComponent,
     UpdatePlanificationComponent,
+    AddEnsembleComponent,
   
   ],
   imports: [

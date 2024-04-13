@@ -11,6 +11,7 @@ import { LoginGuard } from './services/login.guard';
 import { AddVetementComponent } from './components/user-dashboard/vetements/add-vetement/add-vetement.component';
 import { PlanificationComponent } from './components/user-dashboard/planification/planification.component';
 import { UpdatePlanificationComponent } from './components/user-dashboard/planification/update-planification/update-planification.component';
+import { AddEnsembleComponent } from './components/user-dashboard/ensembles/add-ensemble/add-ensemble.component';
 
 const routes: Routes = [
   {path:"",component:HomePageComponent},
@@ -20,9 +21,11 @@ const routes: Routes = [
     children:[
       {path:"vetements", component:ListVetementsComponent},
       {path: "ensembles" , component:ListEnsembleComponent},
+      {path: "ensemble/add", component: AddEnsembleComponent},
       {path: "vetement/add" , component:AddVetementComponent},
       {path: "planifications", component:PlanificationComponent},
-      {path: "planifications/update/:id",component: UpdatePlanificationComponent}
+      {path: "planifications/update/:id",component: UpdatePlanificationComponent},
+     
       
     ]}
 ];

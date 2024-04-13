@@ -1,0 +1,11 @@
+.vetement-card {
+    transform: scale(0.85); 
+}
+.custom-radio{
+    width: 30px; height: 30px;position: absolute;margin-bottom: -15px;z-index: 10001;
+    margin-left:6px ;
+}
+.custom-radio:checked {
+    background-color: #0E8178; 
+    border-color: #0E8178;
+}
