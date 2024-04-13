@@ -1,1 +1,68 @@
-<p>update-planification works!</p>
+<div class="content-header d-flex align-items-center justify-content-between">
+    <h2 class="content-title">Modifier le planning </h2>
+    <div>
+        <button  class="btn btn-outline-success">Save</button>
+       
+    </div>
+</div>
+<div class="card mb-2 p-3">
+    
+        <h4>Liste de Mes Ensembles</h4>
+
+    <div class="card-body">
+        <div class="d-flex align-items-center gap-2">
+            <div  *ngFor="let ensemble of ensemblePage.content ">
+                <input  class="custom-radio  mt-1" type="radio" name="ensembleSelection" [value]="ensemble.id" (change)="selectEnsemble($event)">
+                <app-ensemple-item [ensemble]="ensemble" ></app-ensemple-item>
+            </div>
+        </div>
+ 
+    
+        <div class="row d-flex gx-2 justify-content-end mb-4 mr-2 gap-2 pl-2 mt-2">
+            
+            <button  style="background-color: whitesmoke; width: 30px;height: 30px;border-radius: 50%;color: #0E8178;border:1px solid #0E8178 "class="d-flex align-items-center ml-2 justify-content-center  " >&lt;</button>
+            <button style="background-color: whitesmoke; width: 30px;height: 30px;border-radius: 50%;color: #0E8178; border:1px solid #0E8178 " class="d-flex align-items-center ml-2 justify-content-center" >&gt;</button>
+        </div>
+        <button class="btn custom-btn">Ajouter</button>
+
+    </div>
+</div> 
+<div class="card mb-2 p-3">
+   
+        <h4>Details de planification</h4>
+   
+    <div class="card-body">
+        <div class="card-body">
+            <form [formGroup]="planningForm">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="dateDebut">Date de début :</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="date" id="dateDebut" formControlName="dateDebut">
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="time" id="heureDebut" formControlName="heureDebut">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="dateFin">Date de fin :</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="date" id="dateFin" formControlName="dateFin">
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="time" id="heureFin" formControlName="heureFin">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description :</label>
+                    <input class="form-control" type="text" id="description" formControlName="description">
+                </div>
+            </form>
+            <h6>Ensemble deja planifier</h6>
+            <div class="d-flex justify-content-center align-items-center gap-2">
+                <div  *ngFor="let ensemble of ensemblesPlan ">
+                    <app-ensemple-item [ensemble]="ensemble" ></app-ensemple-item>
+                </div>
+
+            </div>
+            
+</div> 

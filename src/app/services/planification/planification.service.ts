@@ -61,4 +61,7 @@ export class PlanificationService {
   getPlanificationsWithEnsembleId(ensembleId: number): Observable<Planification[]> {
     return this.http.get<Planification[]>(`${this.baseUrl}/all/ensemble/${ensembleId}`);
   }
+  getPlanificationById(id: number): Observable<Planification>{
+    return this.http.get<Planification>(`${this.baseUrl}/${id}`);
+  }
 }
