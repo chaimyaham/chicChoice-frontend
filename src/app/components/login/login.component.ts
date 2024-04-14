@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm!:FormGroup;
   errorMessage: string | null = null;
   submitted = false;
+  loading = false;
 
   constructor(public router:Router,private formBuilder:FormBuilder,private authService:AuthService) { }
 
@@ -28,17 +29,20 @@ export class LoginComponent implements OnInit {
     
       return;
     }
+    this.loading = true;
       console.log(this.loginForm.value)
       const username=this.loginForm.value.username;
       const password=this.loginForm.value.password;
       this.authService.login(username, password).subscribe(
         response => {
-           console.log(response)
+         
+           this.loading = false;
            this.openToast()
            this.router.navigate(['/dashboard']);
         },
         error => {
-           console.log(error);
+           
+           this.loading = false;
            if (error.status === 400) {
              this.errorMessage = "Nom d'utilisateur ou mot de passe incorrect.";
            } else {

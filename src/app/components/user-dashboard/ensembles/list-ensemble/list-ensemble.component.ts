@@ -13,17 +13,17 @@ export class ListEnsembleComponent implements OnInit {
   userId!: string;
   ensemblePage!: Page<EnsembleResponse>;
   errorMsg: string | null = null;
+  currentPage : number = 0;
   constructor(private ensembleService:EnsembleService, private tokenService:TokenService) { }
 
   ngOnInit(): void {
     this.userId=this.tokenService.getUserID();
-    this.getAllEnsembleByUserId();
+    this.getAllEnsembleByUserId(this.currentPage);
     
   }
-  getAllEnsembleByUserId(){
-    this.ensembleService.obtenirEnsemblesCreerParUser(parseInt(this.userId)).subscribe(
+  getAllEnsembleByUserId(page:number){
+    this.ensembleService.obtenirEnsemblesCreerParUser(parseInt(this.userId),page,5).subscribe(
       res => {
-          console.log(res);
           this.ensemblePage=res;
         },
         erreur=>{
@@ -31,6 +31,38 @@ export class ListEnsembleComponent implements OnInit {
             this.errorMsg=erreur.error.message
         });
     
+  }
+  nextPage() {
+    if (this.currentPage < this.ensemblePage.totalPages - 1) {
+      this.currentPage++;
+      this.getAllEnsembleByUserId(this.currentPage);
+    }
+}
+
+previousPage() {
+  if (this.currentPage > 0) {
+    this.currentPage--;
+    this.getAllEnsembleByUserId(this.currentPage);
+  }
+}
+  confirmDelete(itemId: number): void {
+    if (confirm('Etes vous sure de vouloire supprimer cette ensemble')) {
+      this.onDeleteItem(itemId);
+    } else {
+      return
+    }
+  }
+  onDeleteItem(itemId:number){
+  this.ensembleService.supprimerEnsemble(itemId).subscribe(
+    data=>{
+      console.log("ensemble supprimer avec success");
+      this.getAllEnsembleByUserId(this.currentPage);
+
+    },erreur=>{
+      console.log(erreur);
+      this.errorMsg="couldn't delete the item";
+    })
+
   }
   
 

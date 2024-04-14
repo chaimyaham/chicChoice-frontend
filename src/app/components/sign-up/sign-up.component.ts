@@ -26,6 +26,7 @@ export class SignUpComponent implements OnInit {
   countryIso!:string;
   stateIso!:string;
   submitted = false;
+  loading=false;
   errorMessage: string | null = null;
   constructor(private countrystatecityService: CountrystatecityService,
     private formBuilder: FormBuilder,
@@ -85,6 +86,7 @@ this.submitted=true;
     
       return;
     }
+    this.loading = true;
     this.registerForm.value.countrySelected=this.countrySelected;
     if(this.selectedState)this.registerForm.value.selectedState=this.selectedState;
     else this.registerForm.value.selectedState=this.countrySelected;
@@ -106,13 +108,15 @@ this.submitted=true;
     }
     this.authservice.register(user).subscribe(
       res => {
-        console.log(res);
+        
         this.registerForm.reset();
         this.openToast()
+        this.loading=false
         this.router.navigate(['/login']);
+
       },
       err => {
-        console.log(err);
+        this.loading=false
         if (err.status === 500 && err.error.code === 'WEB_APPLICATION') {
           this.errorMessage = "Le nom d'utilisateur ou l'adresse e-mail existe déjà. Veuillez vous connecter.";
         }else if (err.status === 500 && err.error.error === 'Internal Server Error') {

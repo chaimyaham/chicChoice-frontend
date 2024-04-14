@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Media } from 'src/app/models/media';
 import { EnsembleService } from 'src/app/services/ensembles/ensemble.service';
 import { MediaService } from 'src/app/services/media/media.service';
@@ -10,6 +10,7 @@ import { MediaService } from 'src/app/services/media/media.service';
 })
 export class EnsempleItemComponent implements OnInit {
   @Input() ensemble:any;
+  @Output() deleteItem = new EventEmitter<void>();
   
   mediaDetailsList: Media[] = [];
   isFavoris: boolean = false;
@@ -42,6 +43,10 @@ export class EnsempleItemComponent implements OnInit {
         console.log(error);
       }
     )
+  }  
+  onDeleteClick(): void {
+    this.deleteItem.emit();
   }
+  
 
 }

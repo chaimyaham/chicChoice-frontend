@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { EnsembleRequest } from 'src/app/models/ensemble-request';
 import { Media } from 'src/app/models/media';
 import { Page } from 'src/app/models/page';
@@ -22,14 +24,23 @@ export class AddEnsembleComponent implements OnInit {
   vetementList:any[]=[];
   selectedVetementId: string | undefined;
   mediaDetailsList: Media[] = [];
+ ensembleForm!: FormGroup;
+ formSubmitted: boolean = false;
   constructor(private vetementService:VetementService,
      private tokenService:TokenService,
      private ensembleService:EnsembleService,
-     private mediaService : MediaService) { }
+     private mediaService : MediaService,
+     private formBuilder: FormBuilder,
+     private router:Router
+
+     ) { }
 
   ngOnInit(): void {
     this.userId=this.tokenService.getUserID();
     this.getAllVetements(this.currentPage);
+    this.ensembleForm = this.formBuilder.group({
+          nomDeLEnsemble: ['', [Validators.required]],
+        });
     const defaultEnsemble:EnsembleRequest={
       nomDeLEnsemble : "En cours de creation",
       utilisateurId : parseInt(this.userId),
@@ -162,23 +173,41 @@ selectVetement(event: Event) {
 
   }
 }
+onSubmit(): void {
+  if (this.ensembleForm.invalid) {
+    this.ensembleForm.markAllAsTouched();
+    return; 
+  }
+  this.ensembleService.modifierEnsemble(this.newEnsemble.id, {
+    nomDeLEnsemble: this.ensembleForm.value.nomDeLEnsemble,
+    utilisateurId: parseInt(this.userId),
+    favoris: this.newEnsemble.favoris
+  }).subscribe(
+    response => {
+      console.log(response);
+      this.formSubmitted=true;
+      this.router.navigate(['/dashboard/ensembles']);
+    },
+    error => {
+      console.log(error);
+      this.errorMsg="couldn't modify the ensemble";
+    }
+  )
+}
 
-ngOnDestroy(): void {
-  
-  if (this.newEnsemble && this.newEnsemble.id) {
-    const confirmed = confirm("Êtes-vous sur de vouloir quitter la creation de l'ensemble?");
+async ngOnDestroy(): Promise<void> {
+  if (!this.formSubmitted && this.newEnsemble && this.newEnsemble.id) {
+    const confirmed = confirm("Etes-vous sur de vouloir quitter la creation de l'ensemble?");
     if (confirmed) {
-      this.ensembleService.supprimerEnsemble(this.newEnsemble.id).subscribe(
-        response => {
-          console.log("Ensemble supprimé avec succès");
-        },
-        error => {
-          console.log("Erreur lors de la suppression de l'ensemble");
-        }
-      );
+      try {
+        await this.ensembleService.supprimerEnsemble(this.newEnsemble.id).toPromise();
+      } catch (error) {
+        console.log("Erreur lors de la suppression de l'ensemble :", error);
+      }
     }
   }
 }
+
 }
 
 

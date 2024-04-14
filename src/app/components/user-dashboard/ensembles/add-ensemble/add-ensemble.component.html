@@ -45,10 +45,7 @@
             </div> 
       
           
-            <div>
-                <button type="submit" class="btn btn-md rounded font-sm hover-up text-white mt-2" style="background-color: #0E8178;" >Enregistrer</button>
-            </div>
-           
+        
         </div>
         <div class="col-lg-3">
             <div class="card mb-4">
@@ -59,13 +56,36 @@
                     <div *ngFor="let media of mediaDetailsList">
                         <img style="width: 100px;height: 100px;" [src]="media.imageUrl" />
                         
-
                     </div>
                 </div>
                
             </div> 
-        
-          
+            <form [formGroup]="ensembleForm" (ngSubmit)="onSubmit()">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Give it A name</h4>
+                </div>
+             
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col">
+                            <label class="form-label">Nom </label>
+                            <input formControlName="nomDeLEnsemble"  class="form-control " type="Text "/>
+                            <div *ngIf="ensembleForm.get('nomDeLEnsemble')?.errors?.['required'] && ensembleForm.get('nomDeLEnsemble')?.touched" class="text-danger">
+                                Le nom de l'ensemble est requis.
+                              </div>
+                        </div>
+                     
+                      
+                    </div> 
+                </div>
+            </div>
+            <div>
+                <button  type="submit" class="btn btn-md rounded font-sm hover-up text-white mt-2" style="background-color: #0E8178;" >Enregistrer</button>
+            </div>
+        </form>
+           
+         
         </div>
     </div>
 </section> 

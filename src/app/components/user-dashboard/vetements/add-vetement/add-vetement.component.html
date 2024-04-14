@@ -85,7 +85,7 @@
                 <div class="card-body">
                     <div class="input-upload">
                         <img src="../../../../../assets/imgs/theme/upload.svg" alt="media" [src]="getMediaUrl()"  >
-                        <input class="form-control" type="file" (change)="onFileChange($event)">
+                        <input class="form-control"  type="file" accept=".png, .jpg, .jpeg" (change)="onFileChange($event)" maxlength="1048576">
                     </div>
                 </div>
                 <ul *ngIf="submitted && !vetementForm.value.media" class="text-danger mt-2">
@@ -99,3 +99,4 @@
         </div>
     </div>
 </section> 
+<app-preloader *ngIf="loading"></app-preloader>
