@@ -34,6 +34,7 @@ export class PlanificationComponent implements OnInit {
   msg: string | null = null;
   @ViewChild('myModal') myModal!: ElementRef;
   isModalOpen: boolean = false;
+  userId!:number
 
   constructor(
     private tokenService: TokenService,
@@ -45,35 +46,9 @@ export class PlanificationComponent implements OnInit {
   ngOnInit(): void {
     this.setView(CalendarView.Week);
     this.viewDate = new Date();
-    const userId = parseInt(this.tokenService.getUserID());
-    console.log(this.events);
-    console.log(userId);
-    this.getAllPlanififcationEvents(userId);
-    const event1 = {
-      title: 'Event 1',
-      start: new Date('2024-04-12T10:30'),
-      end: new Date('2024-04-12T17:30'),
+    this.userId = parseInt(this.tokenService.getUserID());
+    this.getAllPlanififcationEvents(this.userId);
 
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      meta: { image: '../../../../assets/logo-no-background.png' },
-    };
-    const event2 = {
-      title: 'Event 2',
-      start: new Date('2024-04-13T10:30'),
-      end: new Date('2024-04-16T17:30'),
-
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      meta: { image: '../../../../assets/logo-no-background.png' },
-    };
-    this.events.push(event2);
   }
   setView(view: CalendarView): void {
     this.view = view;
@@ -173,6 +148,20 @@ export class PlanificationComponent implements OnInit {
       if (modalContainer && !modalContainer.contains(event.target as Node)) {
         this.closeModal();
       }
+    }
+  }
+
+  deletePlanification(id:number){
+    if (confirm("Voulez-vous vraiment supprimer cette planification ?")) {
+      this.planificationService.supprimerPlanification(id).subscribe(
+        (data: any) => {
+          this.getAllPlanififcationEvents(this.userId);
+        },
+        (erreur) => {
+          console.log(erreur);
+          this.errorMsg = erreur.error.message;
+        }
+      );
     }
   }
 }

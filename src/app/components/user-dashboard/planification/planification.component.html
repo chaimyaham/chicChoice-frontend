@@ -1,67 +1,62 @@
 <div id="calendar-container" >
-  <div id="cal-buttons" class="d-flex justify-content-around mb-3">
-<div class="row d-flex">
-  <div id="cal-date-nav-buttons" class="d-flex gap-2">
+  <div id="cal-buttons" class="d-flex justify-content-around align-items-center mb-3">
+
+    <div id="cal-date-nav-buttons" class="d-flex gap-2">
      
-    <button
-      class="btn btn-outline-success"
-      id="previous"
-      mwlCalendarPreviousView
-      [(viewDate)]="viewDate"
-      [view]="view"
-    >
-      Previous
-    </button>
-    <button
-      class="btn btn-outline-secondary"
-      id="today"
-      mwlCalendarToday
-      [(viewDate)]="viewDate"
-    >
-      Today
-    </button>
-    <button
-      class="btn btn-outline-primary"
-      id="next"
-      mwlCalendarNextView
-      [(viewDate)]="viewDate"
-      [view]="view"
-    >
-      next
-    </button>
-  </div>
-  <div id="cal-date-field">
-    {{ viewDate | calendarDate : view + "ViewTitle" : "fr" }}
-  </div>
-  <div id="cal-view-nav-buttons" class="d-flex gap-2">
-    <button
-      class="btn btn-outline-danger"
-      id="month"
-      (click)="setView(CalendarView.Month)"
-    >
-      Month
-    </button>
-    <button
-      id="week"
-      class="btn btn-outline-warning"
-      (click)="setView(CalendarView.Week)"
-    >
-      Week
-    </button>
-    <button
-      id="day"
-      class="btn btn-outline-dark"
-      (click)="setView(CalendarView.Day)"
-    >
-      Day
-    </button>
-  </div>
-  <div class="row">
-    <button>ajouter planification</button>
-  </div>
-</div>
-
-
+      <button
+        class="btn btn-outline-success"
+        id="previous"
+        mwlCalendarPreviousView
+        [(viewDate)]="viewDate"
+        [view]="view"
+      >
+        Previous
+      </button>
+      <button
+        class="btn btn-outline-secondary"
+        id="today"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+      >
+        Today
+      </button>
+      <button
+        class="btn btn-outline-primary"
+        id="next"
+        mwlCalendarNextView
+        [(viewDate)]="viewDate"
+        [view]="view"
+      >
+        next
+      </button>
+    </div>
+    <div id="cal-date-field" class="d-flex flex-column align-items-center justify-content-center">
+     <div> {{ viewDate | calendarDate : view + "ViewTitle" : "fr" }}</div>
+      <button routerLink="/dashboard/planifications/add" class="btn" style="background-color: #0E8178;color: white;">Ajouter planification</button>
+    </div>
+    <div id="cal-view-nav-buttons" class="d-flex gap-2">
+      <button
+        class="btn btn-outline-danger"
+        id="month"
+        (click)="setView(CalendarView.Month)"
+      >
+        Month
+      </button>
+      <button
+        id="week"
+        class="btn btn-outline-warning"
+        (click)="setView(CalendarView.Week)"
+      >
+        Week
+      </button>
+      <button
+        id="day"
+        class="btn btn-outline-dark"
+        (click)="setView(CalendarView.Day)"
+      >
+        Day
+      </button>
+    </div>
   </div>
   <span [ngSwitch]="view">
     <mwl-calendar-week-view
@@ -131,7 +126,7 @@
     </div>
 
     </div>
-
+    <span class="btn btn-outline-danger" (click)="deletePlanification(selectedEvent.event.meta.id)">Delete planification</span>
   </div>
 </div>
 

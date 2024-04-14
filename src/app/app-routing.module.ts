@@ -12,6 +12,7 @@ import { AddVetementComponent } from './components/user-dashboard/vetements/add-
 import { PlanificationComponent } from './components/user-dashboard/planification/planification.component';
 import { UpdatePlanificationComponent } from './components/user-dashboard/planification/update-planification/update-planification.component';
 import { AddEnsembleComponent } from './components/user-dashboard/ensembles/add-ensemble/add-ensemble.component';
+import { AddPlanificationComponent } from './components/user-dashboard/planification/add-planification/add-planification.component';
 
 const routes: Routes = [
   {path:"",component:HomePageComponent},
@@ -25,6 +26,7 @@ const routes: Routes = [
       {path: "vetement/add" , component:AddVetementComponent},
       {path: "planifications", component:PlanificationComponent},
       {path: "planifications/update/:id",component: UpdatePlanificationComponent},
+      {path:"planifications/add",component: AddPlanificationComponent},
      
       
     ]}

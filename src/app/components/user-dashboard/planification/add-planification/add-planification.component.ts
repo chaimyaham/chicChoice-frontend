@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,11 +11,12 @@ import { PlanificationService } from 'src/app/services/planification/planificati
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
-  selector: 'app-update-planification',
-  templateUrl: './update-planification.component.html',
-  styleUrls: ['./update-planification.component.css'],
+  selector: 'app-add-planification',
+  templateUrl: './add-planification.component.html',
+  styleUrls: ['./add-planification.component.css']
 })
-export class UpdatePlanificationComponent implements OnInit {
+export class AddPlanificationComponent implements OnInit {
+
   userId!: string;
   ensemblePage!: Page<EnsembleResponse>;
   errorMsg: string | null = null;
@@ -23,6 +25,8 @@ export class UpdatePlanificationComponent implements OnInit {
   planification!: Planification;
   ensemblesPlan: any[] = [];
   submitted = false;
+  selectedEnsembles: number[] = [];
+  loading=false;
   currentPage : number = 0;
   @ViewChild('planificationFormRef') planificationFormRef!: NgForm;
   selectedEnsembleId: string | undefined;
@@ -37,10 +41,7 @@ export class UpdatePlanificationComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')
-    if (id !== null) {
-      this.planificationId = +id;
-      this.getPlanificationById(this.planificationId);
-    }
+ 
     this.userId = this.tokenService.getUserID();
     this.getAllEnsembleByUserId(this.currentPage);
     this.planningForm = this.formBuilder.group({
@@ -51,7 +52,6 @@ export class UpdatePlanificationComponent implements OnInit {
       description: ['', Validators.required],
     }, {validator: this.dateValidation});
   }
-
   dateValidation(formGroup: FormGroup) {
     const dateDebut = formGroup.get('dateDebut')?.value;
     const heureDebut = formGroup.get('heureDebut')?.value;
@@ -70,38 +70,6 @@ export class UpdatePlanificationComponent implements OnInit {
       return null;
     }
   }
-  nextPage() {
-    if (this.currentPage < this.ensemblePage.totalPages - 1) {
-      this.currentPage++;
-      this.getAllEnsembleByUserId(this.currentPage);
-    }
-  }
-  
-  previousPage() {
-  if (this.currentPage > 0) {
-    this.currentPage--;
-    this.getAllEnsembleByUserId(this.currentPage);
-  }
-  }
-  getPlanificationById(id: number) {
-    this.planicationSevice.getPlanificationById(id).subscribe(
-      (planification) => {
-        console.log(planification);
-        this.planification = planification;
-        this.getEnsemblesOfPlanification();
-        this.planningForm.patchValue({
-          dateDebut: planification.dateDebut.toString().slice(0, 10),
-          dateFin: planification.dateFin.toString().slice(0, 10),
-          description: planification.description,
-          heureDebut: planification.dateDebut.toString().slice(11, 16),
-          heureFin: planification.dateFin.toString().slice(11, 16),
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }  
   getAllEnsembleByUserId(page:number){
     this.ensembleService.obtenirEnsemblesCreerParUser(parseInt(this.userId),page,4).subscribe(
       res => {
@@ -113,63 +81,8 @@ export class UpdatePlanificationComponent implements OnInit {
         });
     
   }
-  deleteEnsemble(ensembleId: number) {
-    this.planicationSevice
-      .supprimerEnsembleDePlanification(this.planificationId, ensembleId)
-      .subscribe(
-        (res) => {
-          this.errorMsg = null;
-          this.ensemblesPlan = [];
-          this.getPlanificationById(this.planificationId);
-        },
-        (erreur) => {
-          console.log(erreur);
-        }
-      );
-  }
 
-  getEnsemblesOfPlanification() {
-    this.planification.ensemblesIds.forEach((ensembleId: number) => {
-      console.log(ensembleId);
-      this.ensembleService.getEnsembleById(ensembleId).subscribe(
-        (response: any) => {
-          this.ensemblesPlan.push(response);
-        },
-        (error) => {
-          console.error("Erreur lors de la récupération de l'ensemble:", error);
-        }
-      );
-    });
-  }
-  selectEnsemble(event: Event) {
-    const target = event.target as HTMLInputElement;
-    if (target) {
-      this.errorMsg = null;
-      this.selectedEnsembleId = target.value;
-  
-    }
-  }
 
-  ajouterEnsemble() {
-    if (this.selectedEnsembleId) {
-    this.planicationSevice
-      .ajouterUnEnsembleAUnePlanification(this.planificationId, +this.selectedEnsembleId)
-      .subscribe(
-        (res) => {
-          console.log(res);
-          this.errorMsg = null;
-          this.ensemblesPlan = [];
-          this.getPlanificationById(this.planificationId);
-        },
-        (erreur) => {
-          console.log(erreur.error.message);
-          this.errorMsg = erreur.error.message;
-        }
-      );
-  } else {
-    console.log("Aucun ensemble selectionne.");
-}
-}
 
 submitForm() {
   this.submitted = true;
@@ -183,30 +96,44 @@ submitForm() {
   }
 }
 onSubmit() {
-  console.log("heelllo")
-  console.log(this.planningForm.value)
 
+this.loading=true
   const debut = new Date(this.planningForm.value.dateDebut + 'T' + this.planningForm.value.heureDebut);
     const fin = new Date(this.planningForm.value.dateFin + 'T' + this.planningForm.value.heureFin);
-  const planification  = {
+  const planification :Planification  = {
     dateDebut: debut,
     dateFin: fin,
     description: this.planningForm.value.description,
     utilisateurId: +this.userId,
     meteoId: 1,
-   
+    ensemblesIds:this.selectedEnsembles
   }
-  this.planicationSevice.updatePlanification(planification,this.planificationId).subscribe(
+  this.planicationSevice.ajouterPlanification(planification).subscribe(
     (res) => {
       this.planningForm.reset();
       this.openToast()
+      this.loading=false
       this.router.navigate(['/dashboard/planifications']);
     },
     (erreur) => {
+      this.loading=false
      console.log(erreur);
     }
   )
 
+}
+nextPage() {
+  if (this.currentPage < this.ensemblePage.totalPages - 1) {
+    this.currentPage++;
+    this.getAllEnsembleByUserId(this.currentPage);
+  }
+}
+
+previousPage() {
+if (this.currentPage > 0) {
+  this.currentPage--;
+  this.getAllEnsembleByUserId(this.currentPage);
+}
 }
 openToast() {         
   const newToastNotification = new ToastNotificationInitializer();
@@ -217,4 +144,15 @@ openToast() {
    });
   newToastNotification.openToastNotification$();
  }
+ toggleEnsembleSelection(event: any, ensemble: any) {
+  if (event.target.checked) {
+    this.selectedEnsembles.push(ensemble.id);
+  } else {
+    const index = this.selectedEnsembles.indexOf(ensemble.id);
+    if (index !== -1) {
+      this.selectedEnsembles.splice(index, 1);
+    }
+  }
+  console.log(this.selectedEnsembles);
+}
 }

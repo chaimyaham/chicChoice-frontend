@@ -34,6 +34,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { EnsempleItemComponent } from './components/user-dashboard/ensembles/ensemple-item/ensemple-item.component';
 import { UpdatePlanificationComponent } from './components/user-dashboard/planification/update-planification/update-planification.component';
 import { AddEnsembleComponent } from './components/user-dashboard/ensembles/add-ensemble/add-ensemble.component';
+import { AddPlanificationComponent } from './components/user-dashboard/planification/add-planification/add-planification.component';
 
 registerLocaleData(localeFr ,'fr')
 
@@ -68,6 +69,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     EnsempleItemComponent,
     UpdatePlanificationComponent,
     AddEnsembleComponent,
+    AddPlanificationComponent,
   
   ],
   imports: [

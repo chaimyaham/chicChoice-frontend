@@ -1,0 +1,130 @@
+<div class="content-header d-flex align-items-center justify-content-between">
+    <h2 class="content-title">Modifier le planning</h2>
+    <div>
+      <button class="btn btn-outline-success mb-1" type="submit" (click)="submitForm()" >Save</button>
+    </div>
+  </div>
+  <div class="card mb-2 p-3">
+    <h4>Liste de Mes Ensembles</h4>
+  
+    <div class="card-body">
+      <div class="d-flex align-items-center gap-2" style="overflow: hidden;">
+        <div *ngFor="let ensemble of ensemblePage.content">
+          <input
+          style="width: 23px; height: 23px;position: absolute;margin-bottom: -10px;z-index: 10001;
+          margin-left: 6px ;"
+            class="mt-2"
+            id="check"
+            type="checkbox"
+            name="ensembleSelection"
+            [value]="ensemble.id"
+            (change)="toggleEnsembleSelection($event, ensemble)"
+          />
+         <label for="check"> <app-ensemple-item [ensemble]="ensemble"></app-ensemple-item></label>
+        </div>
+       
+      </div>
+  
+      <div class="row d-flex gx-2 justify-content-end mb-1 mr-2 gap-2 pl-2 mt-2">
+        <button
+          style="
+            background-color: whitesmoke;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: #0e8178;
+            border: 1px solid #0e8178;
+          "
+          (click)="previousPage()"
+          class="d-flex align-items-center ml-2 justify-content-center"
+        >
+          &lt;
+        </button>
+        <button
+          style="
+            background-color: whitesmoke;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: #0e8178;
+            border: 1px solid #0e8178;
+          "
+          (click)="nextPage()"
+          class="d-flex align-items-center ml-2 justify-content-center"
+        >
+          &gt;
+        </button>
+        <div *ngIf="errorMsg" class="alert text-danger" role="alert">
+          {{ errorMsg }}
+    
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-2 p-3">
+    <h4>Details de planification</h4>
+  
+    <div class="card-body">
+      <div class="card-body">
+        <form [formGroup]="planningForm" #planificationFormRef="ngForm" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="dateDebut"
+              >Date de début :</label
+            >
+            <div class="col-sm-4">
+              <input
+                class="form-control"
+                type="date"
+                id="dateDebut"
+                formControlName="dateDebut"
+              />
+            </div>
+            <div class="col-sm-3">
+              <input
+                class="form-control"
+                type="time"
+                id="heureDebut"
+                formControlName="heureDebut"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="dateFin"
+              >Date de fin :</label
+            >
+            <div class="col-sm-4">
+              <input
+                class="form-control"
+                type="date"
+                id="dateFin"
+                formControlName="dateFin"
+              />
+            </div>
+            <div class="col-sm-3">
+              <input
+                class="form-control"
+                type="time"
+                id="heureFin"
+                formControlName="heureFin"
+              />
+            </div>
+          </div>
+          <div *ngIf="planningForm.get('dateFin')?.hasError('invalidDate') && (planningForm.get('dateFin')?.dirty || planningForm.get('dateFin')?.touched)" class="text-danger">
+              La date de fin doit etre superieur ou egale a la date de debut.
+            </div>
+          <div class="form-group">
+            <label for="description">Description :</label>
+            <input
+              class="form-control"
+              type="text"
+              id="description"
+              formControlName="description"
+            />
+            <div *ngIf="planningForm.get('description')?.errors?.['required'] && (planningForm.get('description')?.dirty || planningForm.get('description')?.touched)" class="text-danger">
+              La description est requise.
+            </div>
+          </div>
+  
+        </form>
+  </div>
+  <app-preloader *ngIf="loading"></app-preloader>
