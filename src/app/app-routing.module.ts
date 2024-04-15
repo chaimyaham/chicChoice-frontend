@@ -13,6 +13,10 @@ import { PlanificationComponent } from './components/user-dashboard/planificatio
 import { UpdatePlanificationComponent } from './components/user-dashboard/planification/update-planification/update-planification.component';
 import { AddEnsembleComponent } from './components/user-dashboard/ensembles/add-ensemble/add-ensemble.component';
 import { AddPlanificationComponent } from './components/user-dashboard/planification/add-planification/add-planification.component';
+import { HomeDashComponent } from './components/user-dashboard/dashboard/home-dash/home-dash.component';
+import { FavoriComponent } from './components/user-dashboard/vetements/favori/favori.component';
+import { FavoriEnsembleComponent } from './components/user-dashboard/ensembles/favori-ensemble/favori-ensemble.component';
+import { UpdateEnsembleComponent } from './components/user-dashboard/ensembles/update-ensemble/update-ensemble.component';
 
 const routes: Routes = [
   {path:"",component:HomePageComponent},
@@ -27,6 +31,12 @@ const routes: Routes = [
       {path: "planifications", component:PlanificationComponent},
       {path: "planifications/update/:id",component: UpdatePlanificationComponent},
       {path:"planifications/add",component: AddPlanificationComponent},
+      {path:"",component: HomeDashComponent},
+      {path:"vetements/favoris",component: FavoriComponent},
+      {path:"ensembles/favoris",component:FavoriEnsembleComponent},
+      {path:"ensembles/:id",component:UpdateEnsembleComponent}
+    
+
      
       
     ]}

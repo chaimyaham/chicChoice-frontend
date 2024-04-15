@@ -118,6 +118,7 @@
     </div>
     <div class="d-flex justify-content-around gap-2">
       <div class="p-1 rounded-1" *ngFor="let ensemble of ensembleOftheevent">
+        
         <app-ensemple-item [ensemble]="ensemble"></app-ensemple-item>
       </div>
       <a class="rounded-icon d-flex align-items-center justify-content-center" [routerLink]="['/dashboard/planifications/update',selectedEvent.event.meta.id]"  style="width: 30px; height: 30px; background-color: #0E8178; color:white;" title="Ajouter un ensemble">

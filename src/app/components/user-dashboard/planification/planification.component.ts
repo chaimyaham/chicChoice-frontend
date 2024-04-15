@@ -99,10 +99,35 @@ export class PlanificationComponent implements OnInit {
     console.log(event);
     event.event.start = event.newStart;
     event.event.end = event.newEnd;
+    
+
+    // Récupérer l'ID de la planification à partir de l'événement
+    const planificationId = event.event.meta.id;
+
+    // Créer une nouvelle planification avec les nouvelles données de début et de fin
+    const updatedPlanification: Planification = {
+    
+      dateDebut: event.newStart,
+      dateFin: event.newEnd,
+      description: event.event.title,
+      utilisateurId: this.userId,
+      meteoId: 1,
+      ensemblesIds: event.event.meta.ensemble,
+    }
+    this.planificationService.updatePlanification(updatedPlanification,planificationId).subscribe(
+      (data)=>{
+        this.getAllPlanififcationEvents(this.userId);
+        console.log("updated")
+
+      },(error)=>{
+        console.log(error);
+      }
+    )
     this.refresh.next();
   }
 
   getAllPlanififcationEvents(userId: number) {
+    this.events = [];
     this.planificationService
       .getAllPlanififcationByUserId(userId, 0, 10)
       .subscribe(
@@ -155,7 +180,11 @@ export class PlanificationComponent implements OnInit {
     if (confirm("Voulez-vous vraiment supprimer cette planification ?")) {
       this.planificationService.supprimerPlanification(id).subscribe(
         (data: any) => {
-          this.getAllPlanififcationEvents(this.userId);
+          this.events = this.events.filter(event => event.meta.id !== id);
+          this.refresh.next();
+          this.closeModal();
+          
+
         },
         (erreur) => {
           console.log(erreur);
@@ -164,4 +193,5 @@ export class PlanificationComponent implements OnInit {
       );
     }
   }
+  
 }

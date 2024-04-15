@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Media } from 'src/app/models/media';
 import { EnsembleService } from 'src/app/services/ensembles/ensemble.service';
 import { MediaService } from 'src/app/services/media/media.service';
@@ -16,7 +17,7 @@ export class EnsempleItemComponent implements OnInit {
   isFavoris: boolean = false;
   
   
-  constructor(private mediaService : MediaService,private ensembleService:EnsembleService) { }
+  constructor(private mediaService : MediaService,private ensembleService:EnsembleService,private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.ensemble)
@@ -46,6 +47,9 @@ export class EnsempleItemComponent implements OnInit {
   }  
   onDeleteClick(): void {
     this.deleteItem.emit();
+  }
+  updateItem(id:number){
+    this.router.navigate(['/dashboard/ensembles/' + id]);
   }
   
 

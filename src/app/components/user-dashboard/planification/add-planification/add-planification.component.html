@@ -14,13 +14,13 @@
           style="width: 23px; height: 23px;position: absolute;margin-bottom: -10px;z-index: 10001;
           margin-left: 6px ;"
             class="mt-2"
-            id="check"
+            [id]="ensemble.id"
             type="checkbox"
             name="ensembleSelection"
             [value]="ensemble.id"
             (change)="toggleEnsembleSelection($event, ensemble)"
           />
-         <label for="check"> <app-ensemple-item [ensemble]="ensemble"></app-ensemple-item></label>
+         <label [for]="ensemble.id"> <app-ensemple-item [ensemble]="ensemble"></app-ensemple-item></label>
         </div>
        
       </div>

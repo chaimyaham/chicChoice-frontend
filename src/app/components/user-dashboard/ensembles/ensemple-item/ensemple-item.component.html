@@ -1,4 +1,4 @@
-<div class="card-1 d-flex flex-column align-items-center" tabindex="-1" style="width: 160px;">
+<!-- <div class="card-1 d-flex flex-column align-items-center" tabindex="-1" style="width: 160px;">
     <figure class="d-flex align-items-center justify-content-center">
         <div *ngFor="let media of mediaDetailsList">
             <img width="50px" height ="50px"[src]="media.imageUrl" alt="">
@@ -10,4 +10,23 @@
     <a aria-label="Delete" class="action-btn hover-up heartt" style="color: rgb(188, 0, 0);" (click)="onDeleteClick()"><i class="fi-rs-trash"></i></a>
    </div>
 
+</div> -->
+<div class="card-ensemble d-flex flex-column align-items-center justify-content-between "tabindex="-1" style="width: 180px;height:230px; border: 1px solid #ddd; border-radius: 8px; padding: 10px; text-align: center;">
+    <figure style="margin-bottom: 10px;">
+        <div *ngFor="let media of mediaDetailsList" style="margin-right: 5px;">
+            <img width="50px" height="50px" [src]="media.imageUrl" alt="Image de l'ensemble">
+        </div>
+    </figure>
+    <div style="max-height: 70px; overflow-y: auto;">
+        <p style="color: #333; font-size: 14px; font-weight: bold; margin-bottom: 5px;">{{ensemble.nomDeLEnsemble}}</p>
+    </div>
+    <div class="d-flex justify-content-around align-items-center" style="width: 100%;">
+        <a aria-label="Favoris" class="action-btn hover-up heartt" (click)="toggleFavoris()" [ngStyle]="{ 'background-color': isFavoris ? '#0E8178' : 'white', 'color': isFavoris ? 'white' : '#0E8178', 'border-radius': '50%', 'padding': '8px', 'display': 'inline-flex', 'align-items': 'center' }">
+            <i class="fi-rs-heart"></i> 
+        </a>
+        <a aria-label="Supprimer" class="action-btn hover-up heartt" (click)="onDeleteClick()" style="color: #b80000; border-radius: 50%; padding: 8px; display: inline-flex; align-items: center;">
+            <i class="fi-rs-trash"></i> 
+        </a>
+    </div>
 </div>
+
