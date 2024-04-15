@@ -11,7 +11,7 @@
    </div>
 
 </div> -->
-<div class="card-ensemble d-flex flex-column align-items-center justify-content-between "tabindex="-1" style="width: 180px;height:230px; border: 1px solid #ddd; border-radius: 8px; padding: 10px; text-align: center;">
+<div class="card-ensemble d-flex flex-column align-items-center justify-content-between " (mouseenter)="isHovered = true" (mouseleave)="isHovered = false"  tabindex="-1" style="width: 180px;height:270px; border: 1px solid #ddd; border-radius: 8px; padding: 10px; text-align: center;">
     <figure style="margin-bottom: 10px;">
         <div *ngFor="let media of mediaDetailsList" style="margin-right: 5px;">
             <img width="50px" height="50px" [src]="media.imageUrl" alt="Image de l'ensemble">
@@ -30,3 +30,21 @@
     </div>
 </div>
 
+<div class="custom-modal-container"  *ngIf="isHovered" style="position: absolute; background-color: white; padding: 30px;border-radius: 10%; z-index: 100001;">
+    <div class="custom-modal">
+      <div class="custom-modal-header">
+    
+      </div>
+      <hr class="custom-divider">
+      <div class="custom-modal-body">
+        <figure class="d-flex justify-content-center">
+            <div *ngFor="let media of mediaDetailsList" style="margin-right: 10px;">
+                <div class="image-container">
+                    <img class="ensemble-image" width="100px" height="100px" [src]="media.imageUrl" alt="Image de l'ensemble">
+                </div>
+            </div>
+        </figure>
+      </div>
+    </div>
+</div>
+  

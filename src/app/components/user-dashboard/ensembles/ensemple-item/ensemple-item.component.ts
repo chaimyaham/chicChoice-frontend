@@ -12,15 +12,17 @@ import { MediaService } from 'src/app/services/media/media.service';
 export class EnsempleItemComponent implements OnInit {
   @Input() ensemble:any;
   @Output() deleteItem = new EventEmitter<void>();
+  @Output() ensembleUpdated = new EventEmitter<any>();
   
   mediaDetailsList: Media[] = [];
   isFavoris: boolean = false;
+  isHovered: boolean = false;
   
   
   constructor(private mediaService : MediaService,private ensembleService:EnsembleService,private router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.ensemble)
+   
     this.isFavoris = this.ensemble.favoris ;
     this.ensemble.vetements.forEach((vetement: any) => {
       const mediaId = vetement.mediaId;
@@ -39,6 +41,7 @@ export class EnsempleItemComponent implements OnInit {
     this.ensembleService.marquerEnsembleCommeFavori(this.ensemble.id).subscribe(
       response => { 
         this.isFavoris =!this.isFavoris;
+        this.ensembleUpdated.emit();
       },
       error => {
         console.log(error);
