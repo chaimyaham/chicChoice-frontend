@@ -87,6 +87,9 @@
                         <img src="../../../../../assets/imgs/theme/upload.svg" alt="media" [src]="getMediaUrl()"  >
                         <input class="form-control"  type="file" accept=".png, .jpg, .jpeg" (change)="onFileChange($event)" maxlength="1048576">
                     </div>
+                    <div *ngIf="vetementForm.controls['media'].errors && (vetementForm.controls['media'].dirty || vetementForm.controls['media'].touched)" class="text-danger mt-2">
+                        <small *ngIf="vetementForm.controls['media'].errors['maxlength']">La taille de l'image ne peut pas dépasser 1 Mo.</small>
+                    </div>
                 </div>
                 <ul *ngIf="submitted && !vetementForm.value.media" class="text-danger mt-2">
                    <li> Veuillez selectionner un media.</li>

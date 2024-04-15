@@ -81,9 +81,12 @@ export class AddVetementComponent implements OnInit {
         this.vetementForm.patchValue({
           media: file
         });
-      } else {
-        // Handle case when no file is selected
-      }
+        if (file.size > 1048576) {
+          this.errorMsg = "La taille de l'image ne peut pas depasser 1 Mo.";
+        } else {
+          this.errorMsg = null;
+        }
+      } 
      
     }
     submitForm() {
